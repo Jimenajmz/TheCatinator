@@ -1,0 +1,20 @@
+Basically, you are going to want to have a local repository folder on your computer's drive.  Here is where you want to create folders for each new github repository you add.
+
+So my file structure, for example, is C:/users/user_name/Documents/gitRepos>
+
+You need to sign into your github account in the terminal:  `git config --global user.email "your_email"`.
+
+Within this folder you want to "clone" the github-hosted repository so you can add, modify, or delete files.  To do this, open your local repo folder in VS code, add a terminal, and change your directory into this local repo folder.
+
+When your terminal is in that directory, enter `git clone https://github.com/Jimenajmz/TheCatinator.git` and press enter to execute this command.  This should add `TheCatinator` as a local repository within your local repos folder.   This version of `TheCatinator` is where you should edit/add/delete the project files.
+
+So now with this local repo, you are able to add/modify/delete the files within.  To upload these changes to Github, you first have to tell git that you are wanting it to track the file: `git add file_name`.  Next, you need to commit the changes to the github page.
+
+If you just want to commit a single file, ensure that you've added it to the tracked files with `git add`, then use `git commit -m "commit_message"` to commit the changes to a temporary holding space on your computer called head.  To push these changes to the main repo, you need to use `git push https://github.com/Jimenajmz/TheCatinator.git`.
+
+If you want to commit any files you've added with `git add` AND also any files you've modified, use `git commit -a "commit_message"` to commit the newly tracked files and all changes to the main reposititory.
+
+Kinda counterintuitive, I know.  When commiting a single file, you need to push the files from head to the main repo.  However, when commiting multiple files, you do not need to push the files since they are not stored in head.
+
+
+I hope this was intuitive enough and you found it helpful!
