@@ -118,6 +118,8 @@ void setup(){
     Food Coffee("Coffee", 0.1, true, 0, true, false, false, true, true);
     Food Tea("Tea", 0.1, true, 4, true, false, false, true, true);
     Food Soda("Soda", 0.0, false, 4, true, true, false, true, true);
+
+
     Food EnT("Eggs and Toast", 0.25, true, 0, false, false, false, false, true);
     Food Toast("Toast", 0.1, true, 0, false, false, false, true, true);
     Food Cereal("Cereal", 0.1, false, 0, false, true, false, false, true);
@@ -146,6 +148,8 @@ void setup(){
     drinkArr[2] = &Coffee;
     drinkArr[3] = &Tea;
     drinkArr[4] = &Soda;
+
+    
     foodArr[0] = &EnT;
     foodArr[1] = &Toast;
     foodArr[2] = &Cereal;
