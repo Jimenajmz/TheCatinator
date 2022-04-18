@@ -1,4 +1,9 @@
 #include <string>
+#include <iostream>
+#include <iomanip>
+#include <cmath>
+#include <ctime>
+#include <stdlib.h>
 
 
 using namespace std;
@@ -109,7 +114,8 @@ Food::~Food(){
 }
 
 
-void setup(){
+
+int main(){
     Food *drinkArr[200];
     Food *foodArr[200];
 
@@ -117,8 +123,13 @@ void setup(){
 
     drinkArr[0] = &hotChocolate;
 
-}
+    cout << hotChocolate.getItemName() << "'s time to make is " << hotChocolate.getTimeToMake() << " hours" << endl;
+    cout << drinkArr[0]->getItemName() << "'s time to make is " << drinkArr[0]->getTimeToMake() << " hours" << endl;
 
-void loop(){
+    /*
+    Both of these cout statements work to say:
+    Hot Chocolate's time to make is 0.1 hours
+    */
+    
 
 }
