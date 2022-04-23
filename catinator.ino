@@ -12,12 +12,11 @@ class Food{
         bool isCaffeinated; //TRUE for yes, FALSE for no
         bool isSweet; //TRUE for yes, FALSE for no
         bool isSpicy; //TRUE for yes, FALSE for no
-        bool isVegan; //TRUE for yes, FALSE for no
         bool isVegetarian; //TRUE for yes, FALSE for no
 
     public:
         Food();
-        Food(std::string itemName, double timeToMake, bool temperature, int foodTime, bool isCaffeinated, bool isSweet, bool isSpicy, bool isVegan, bool isVegetarian);
+        Food(std::string itemName, double timeToMake, bool temperature, int foodTime, bool isCaffeinated, bool isSweet, bool isSpicy, bool isVegetarian);
 
         void setItemName(std::string name){
             itemName = name;
@@ -39,9 +38,6 @@ class Food{
         }
         void setSpicy(bool spice){
             isSpicy = spice;
-        }
-        void setVegan(bool vegan){
-            isVegan = vegan;
         }
         void setVegetarian(bool vegetarian){
             isVegetarian = vegetarian;
@@ -69,9 +65,6 @@ class Food{
         bool getSpicy(){
             return isSpicy;
         }
-        bool getVegan(){
-            return isVegan;
-        }
         bool getVegetarian(){
             return isVegetarian;
         }
@@ -88,11 +81,10 @@ Food::Food(){
     Food::isCaffeinated = false;
     Food::isSweet = false;
     Food::isSpicy = false;
-    Food::isVegan = false;
     Food::isVegetarian = false;
 }
 
-Food::Food(std::string itemName, double timeToMake, bool temperature, int foodTime, bool isCaffeinated, bool isSweet, bool isSpicy, bool isVegan, bool isVegetarian){
+Food::Food(std::string itemName, double timeToMake, bool temperature, int foodTime, bool isCaffeinated, bool isSweet, bool isSpicy, bool isVegetarian){
     Food::itemName = itemName;
     Food::timeToMake = timeToMake;
     Food::temperature = temperature;
@@ -100,7 +92,6 @@ Food::Food(std::string itemName, double timeToMake, bool temperature, int foodTi
     Food::isCaffeinated = isCaffeinated;
     Food::isSweet = isSweet;
     Food::isSpicy = isSpicy;
-    Food::isVegan = isVegan;
     Food::isVegetarian = isVegetarian;
 }
 
@@ -127,9 +118,9 @@ bool tempDesired = false; //false for cold, true for hot
 bool desiredCaffeine = false; // false for no, true for yes
 bool desiredSweet = false; //false for no, true for yes
 bool desiredSpice = false; //false for no, true for yes
-bool desiredVegan = false; //false for no, true for yes
 bool desiredVegetarian = false; //false for no, true for yes
 int currTime; //current hour in UTC-6 (centeral standard time)
+int mealTime; //0=breakfast, 1=lunch, 2=dinner, 4=snack
 
 
 
@@ -286,21 +277,6 @@ bool askForDesiredSpice(){
     }
 }
 
-bool askForVegan(){
-    //insert code here to push to screen
-
-    while(buttonYes == 0 && buttonNo == 0){
-            buttonA = digitalRead(buttonAPIN);
-            buttonB = digitalRead(buttonBPIN);
-        if(buttonA == 1){ // vegan
-            return true;
-        }
-        else if(buttonB == 1 && buttonA ==0){// not vegan
-            return false;
-        }
-    }
-}
-
 bool askForVegetarian(){
     //inset code here to push to screen
 
@@ -325,22 +301,34 @@ void loop(){
     buttonNo = digitalRead(buttonNoPIN);
     buttonTest = digitalRead(buttonTestPIN);
     currTime = Time.hour();
-    
+    if(currTime > 5 && currTime < 12){
+        mealTime == 0;//breakfast
+    }
+    else if(currTime > 11 && currTime < 17){
+        mealTime == 1;//lunch
+    }
+    else if(currTime > 16 && currTime < 21){
+        mealTime == 2;//dinner
+    }
+    else{
+        mealTime == 4;//snack
+    }
+
 
     //ask if hungry or thirsty, return true for drink, false for food
+    
     foodOrDrink = askForFoodOrDrink();
-    if(foodOrDrink == false){ //if user wants food
-
+    if(foodOrDrink == false && mealTime == 0){ //if user wants food (breakfast)
 
     }
+
+
+    
     tempDesired = askForDesiredTemp();
     desiredCaffeine = askForDesiredCaffeine();
     desiredSweet = askForDesiredSweet();
     desiredSpice = askForDesiredSpice();
-    desiredVegan = askForVegan();
     desiredVegetarian = askForVegetarian();
-    
-
 
 
 
