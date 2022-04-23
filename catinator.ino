@@ -119,6 +119,10 @@ int buttonTestPIN = D5;
 int LCDPIN1 = A0;
 int LCDPIN2 = A1;
 
+Food reccomendedItem;
+
+String sheetNumber;
+
 int buttonYes, buttonNo, buttonA, buttonB, buttonC, buttonTest;
 
 bool foodOrDrink = false; //false for food, true for dink
@@ -371,9 +375,27 @@ void loop(){
     }
 
     if(foodOrDrink == false){
-        Food recomendedItem = searchForFood(mealTime, desiredSweet, desiredSpice, tempDesired, desiredVegetarian);
+        reccomendedItem = searchForFood(mealTime, desiredSweet, desiredSpice, tempDesired, desiredVegetarian);
+        sheetNumber = "1";
     }
     else{
-        Food recomendedItem = searchForDrink(mealTime, desiredSweet, tempDesired, desiredCaffeine);
+        reccomendedItem = searchForDrink(mealTime, desiredSweet, tempDesired, desiredCaffeine);
+        sheetNumber = "2";
     }
+
+    String recomendedItemName = reccomendedItem.getItemName();
+
+    String jsonURL = "http://gsx2json.com/api?id=1j3hOhOop3JSAOlft1MeWzy6ohqzPoidtYxya51j3hB0&sheet=" + sheetNumber + "&q=" + recomendedItemName;
+    //http://gsx2json.com/api?id=1j3hOhOop3JSAOlft1MeWzy6ohqzPoidtYxya51j3hB0&sheet=1&q=Hot_Chocolate
+
+
 }
+
+
+
+
+/*
+SHEET PUBLISH URL: https://docs.google.com/spreadsheets/d/e/2PACX-1vQjwLppuLNXVJOfKttuirwGfJumym55-kroePQEsxrdmYDsjf5ptqErrBQrrhAhspJN-u2uJYnEh75h/pubhtml
+SHEET DOCUMENT ID: 1j3hOhOop3JSAOlft1MeWzy6ohqzPoidtYxya51j3hB0
+
+*/
