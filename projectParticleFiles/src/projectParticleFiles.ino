@@ -119,6 +119,8 @@ int buttonBPIN = D3;
 int buttonCPIN = D4;
 int buttonTestPIN = D5;
 int buttonYes, buttonNo, buttonA, buttonB, buttonC, buttonTest;
+int LCDPIN1 = A0;
+int LCDPIN2 = A1;
 
 bool foodOrDrink = false; //false for food, true for dink
 bool tempDesired = false; //false for cold, true for hot
@@ -201,9 +203,117 @@ void setup(){
     pinMode(buttonBPIN, INPUT);
     pinMode(buttonCPIN, INPUT);
     pinMode(buttonTestPIN, INPUT);
+    pinMode(LCDPIN1, OUTPUT);
+    pinMode(LCDPIN2, OUTPUT);
+
 
     Time.zone(-6);
 
+}
+
+bool askForFoodOrDrink(){
+    //insert code here to push to the screen
+
+    while(buttonYes == 0 && buttonNo == 0){
+            buttonA = digitalRead(buttonAPIN);
+            buttonB = digitalRead(buttonBPIN);
+        if(buttonA == 1){ // food/hungry
+            return false;
+        }
+        else if(buttonB == 1 && buttonA ==0){// drink/thirsty
+            return true;
+        }
+    }
+}
+
+bool askForDesiredTemp(){
+    //insert code here to push to screen
+
+    while(buttonYes == 0 && buttonNo == 0){
+            buttonA = digitalRead(buttonAPIN);
+            buttonB = digitalRead(buttonBPIN);
+        if(buttonA == 1){ // hot
+            return true;
+        }
+        else if(buttonB == 1 && buttonA ==0){// cold
+            return false;
+        }
+    }
+}
+
+bool askForDesiredCaffeine(){
+    //insert code here to push to screen
+
+    while(buttonYes == 0 && buttonNo == 0){
+            buttonA = digitalRead(buttonAPIN);
+            buttonB = digitalRead(buttonBPIN);
+        if(buttonA == 1){ // caffeine
+            return true;
+        }
+        else if(buttonB == 1 && buttonA ==0){// no caffine
+            return false;
+        }
+    }
+}
+
+bool askForDesiredSweet(){
+    //insert code here to push to screen
+
+    while(buttonYes == 0 && buttonNo == 0){
+            buttonA = digitalRead(buttonAPIN);
+            buttonB = digitalRead(buttonBPIN);
+        if(buttonA == 1){ // sweet
+            return true;
+        }
+        else if(buttonB == 1 && buttonA ==0){// not sweet
+            return false;
+        }
+    }
+}
+
+bool askForDesiredSpice(){
+    //insert code here to push to screen
+
+    while(buttonYes == 0 && buttonNo == 0){
+            buttonA = digitalRead(buttonAPIN);
+            buttonB = digitalRead(buttonBPIN);
+        if(buttonA == 1){ // spicy
+            return true;
+        }
+        else if(buttonB == 1 && buttonA ==0){// no spice
+            return false;
+        }
+    }
+}
+
+bool askForVegan(){
+    //insert code here to push to screen
+
+    while(buttonYes == 0 && buttonNo == 0){
+            buttonA = digitalRead(buttonAPIN);
+            buttonB = digitalRead(buttonBPIN);
+        if(buttonA == 1){ // vegan
+            return true;
+        }
+        else if(buttonB == 1 && buttonA ==0){// not vegan
+            return false;
+        }
+    }
+}
+
+bool askForVegetarian(){
+    //inset code here to push to screen
+
+    while(buttonYes == 0 && buttonNo == 0){
+            buttonA = digitalRead(buttonAPIN);
+            buttonB = digitalRead(buttonBPIN);
+        if(buttonA == 1){ // vegetarian
+            return true;
+        }
+        else if(buttonB == 1 && buttonA ==0){// not vegetarian
+            return false;
+        }
+    }
 }
 
 void loop(){
@@ -216,8 +326,15 @@ void loop(){
     buttonTest = digitalRead(buttonTestPIN);
     currTime = Time.hour();
 
-    //ask if hungry or thirsty
-    if()
+    //ask if hungry or thirsty, return true for drink, false for food
+    foodOrDrink = askForFoodOrDrink();
+    tempDesired = askForDesiredTemp();
+    desiredCaffeine = askForDesiredCaffeine();
+    desiredSweet = askForDesiredSweet();
+    desiredSpice = askForDesiredSpice();
+    desiredVegan = askForVegan();
+    desiredVegetarian = askForVegetarian();
+    
 
 
 
