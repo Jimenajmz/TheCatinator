@@ -222,7 +222,7 @@ void setup(){
 bool askForFoodOrDrink(){
     //insert code here to push to the screen
 
-    while(buttonYes == 0 && buttonNo == 0){
+    while(buttonA == 0 && buttonB == 0){
         buttonA = digitalRead(buttonAPIN);
         buttonB = digitalRead(buttonBPIN);
         if(buttonA == 1){ // food/hungry
@@ -233,12 +233,12 @@ bool askForFoodOrDrink(){
 }
 
 bool askForDesiredTemp(){
-    //insert code here to push to screen
+    //insert code here to push to screen (Do you want a hot drink?)
 
     while(buttonYes == 0 && buttonNo == 0){
-        buttonA = digitalRead(buttonAPIN);
-        buttonB = digitalRead(buttonBPIN);
-        if(buttonA == 1){ // hot
+        buttonYes = digitalRead(buttonYesPIN);
+        buttonNo = digitalRead(buttonNoPIN);
+        if(buttonYes == 1){ // hot
             return true;
         }
     }
@@ -246,12 +246,12 @@ bool askForDesiredTemp(){
 }
 
 bool askForDesiredCaffeine(){
-    //insert code here to push to screen
+    //insert code here to push to screen (Do you want it to have caffeine?)
 
     while(buttonYes == 0 && buttonNo == 0){
-        buttonA = digitalRead(buttonAPIN);
-        buttonB = digitalRead(buttonBPIN);
-        if(buttonA == 1){ // caffeine
+        buttonYes = digitalRead(buttonYesPIN);
+        buttonNo = digitalRead(buttonNoPIN);
+        if(buttonYes == 1){ // caffeine
             return true;
         }
     }
@@ -259,12 +259,12 @@ bool askForDesiredCaffeine(){
 }
 
 bool askForDesiredSweet(){
-    //insert code here to push to screen
+    //insert code here to push to screen (should it be sweet?)
 
     while(buttonYes == 0 && buttonNo == 0){
-        buttonA = digitalRead(buttonAPIN);
-        buttonB = digitalRead(buttonBPIN);
-        if(buttonA == 1){ // sweet
+        buttonYes = digitalRead(buttonYesPIN);
+        buttonNo = digitalRead(buttonNoPIN);
+        if(buttonYes == 1){ // sweet
             return true;
         }
     }
@@ -272,12 +272,12 @@ bool askForDesiredSweet(){
 }
 
 bool askForDesiredSpice(){
-    //insert code here to push to screen
+    //insert code here to push to screen (spicy?)
 
     while(buttonYes == 0 && buttonNo == 0){
-        buttonA = digitalRead(buttonAPIN);
-        buttonB = digitalRead(buttonBPIN);
-        if(buttonA == 1){ // spicy
+        buttonYes = digitalRead(buttonYesPIN);
+        buttonNo = digitalRead(buttonNoPIN);
+        if(buttonYes == 1){ // spicy
             return true;
         }
     }
@@ -285,12 +285,12 @@ bool askForDesiredSpice(){
 }
 
 bool askForVegetarian(){
-    //inset code here to push to screen
+    //inset code here to push to screen (vegetarian?)
 
     while(buttonYes == 0 && buttonNo == 0){
-        buttonA = digitalRead(buttonAPIN);
-        buttonB = digitalRead(buttonBPIN);
-        if(buttonA == 1){ // vegetarian
+        buttonYes = digitalRead(buttonYesPIN);
+        buttonNo = digitalRead(buttonNoPIN);
+        if(buttonYes == 1){ // vegetarian
             return true;
         }
     }
@@ -367,7 +367,7 @@ void loop(){
         tempDesired = askForDesiredTemp();
         desiredVegetarian = askForVegetarian();
     }
-    else{
+    else{//drink
         desiredSweet = askForDesiredSweet();
         tempDesired = askForDesiredTemp();
         desiredCaffeine = askForDesiredCaffeine();
@@ -376,11 +376,11 @@ void loop(){
 
     if(foodOrDrink == false){
         reccomendedItem = searchForFood(mealTime, desiredSweet, desiredSpice, tempDesired, desiredVegetarian);
-        sheetNumber = "1";
+        sheetNumber = "Food";
     }
     else{
         reccomendedItem = searchForDrink(mealTime, desiredSweet, tempDesired, desiredCaffeine);
-        sheetNumber = "2";
+        sheetNumber = "Drinks";
     }
 
     String recomendedItemName = reccomendedItem.getItemName();
