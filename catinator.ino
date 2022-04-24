@@ -457,7 +457,7 @@ void loop(){
         if(mealTime == 0){
         }
         else{
-            mealTime == 4;
+            mealTime = 4;
         }
 
     }

@@ -282,7 +282,7 @@ int main(){
         if(mealTime == 0){
         }
         else{
-            mealTime == 4;
+            mealTime = 4;
         }
         reccomendedItem = searchForDrink(mealTime, desiredSweet, tempDesired, desiredCaff);
         cout << "Drink: " << reccomendedItem.getItemName() << endl;
