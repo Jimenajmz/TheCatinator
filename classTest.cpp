@@ -4,124 +4,42 @@
 #include <cmath>
 #include <ctime>
 #include <stdlib.h>
-
+#include "Food.hpp"
 
 using namespace std;
 
-class Food{
-    private: 
-        std::string itemName;
-        double timeToMake; //time in hours to make
-        bool temperature; //TRUE for hot, FALSE for cold
-        int foodTime; //0=breakfast, 1=lunch, 2=dinner, 3=desert, 4=snack
-        bool isCaffeinated; //TRUE for yes, FALSE for no
-        bool isSweet; //TRUE for yes, FALSE for no
-        bool isSpicy; //TRUE for yes, FALSE for no
-        bool isVegan; //TRUE for yes, FALSE for no
-        bool isVegetarian; //TRUE for yes, FALSE for no
+Food *drinkArr[200];
+Food *foodArr[200];
+int numDrinks = 7;
+int numFoods = 64;
 
-    public:
-        Food();
-        Food(std::string itemName, double timeToMake, bool temperature, int foodTime, bool isCaffeinated, bool isSweet, bool isSpicy, bool isVegan, bool isVegetarian);
-
-        void setItemName(std::string name){
-            itemName = name;
-        }
-        void setTimeToMake(double time){
-            timeToMake = time;
-        }
-        void setTemperature(bool temp){
-            temperature = temp;
-        }
-        void setFoodTime(int time){
-            foodTime = time;
-        }
-        void setCaffine(bool caff){
-            isCaffeinated = caff;
-        }
-        void setSweet(bool sweet){
-            isSweet = sweet;
-        }
-        void setSpicy(bool spice){
-            isSpicy = spice;
-        }
-        void setVegan(bool vegan){
-            isVegan = vegan;
-        }
-        void setVegetarian(bool vegetarian){
-            isVegetarian = vegetarian;
-        }
+Food *drinkReccomendations[200];
+Food *foodReccomendations[200];
+int numDrinkRecc = 0;
+int numFoodRecc = 0;
 
 
-        std::string getItemName(){
-            return itemName;
-        }
-        double getTimeToMake(){
-            return timeToMake;
-        }
-        bool getTemperature(){
-            return temperature;
-        }
-        int getFoodTime(){
-            return foodTime;
-        }
-        bool getCaffine(){
-            return isCaffeinated;
-        }
-        bool getSweet(){
-            return isSweet;
-        }
-        bool getSpicy(){
-            return isSpicy;
-        }
-        bool getVegan(){
-            return isVegan;
-        }
-        bool getVegetarian(){
-            return isVegetarian;
-        }
+Food hotChocolate("Hot Chocolate", 0.1, true, 4, true, true, false, true);  
+Food Water("Water", 0.0, false, 4, false, false, false,true);
+Food Coffee("Coffee", 0.1, true, 0, true, false, false, true);
+Food Tea("Tea", 0.1, true, 4, true, false, false, true);
+Food Soda("Soda", 0.0, false, 4, true, true, false, true);
+Food Smoothie("Smoothie", 0.2, false, 4, false, true, false,  true);
+Food Juice("Juice", 0.0, false, 4, false, true, false, true);
 
 
-        ~Food();
-};
-
-Food::Food(){
-    Food::itemName = "noName";
-    Food::timeToMake = 0.0;
-    Food::temperature = false;
-    Food::foodTime = -1;
-    Food::isCaffeinated = false;
-    Food::isSweet = false;
-    Food::isSpicy = false;
-    Food::isVegan = false;
-    Food::isVegetarian = false;
-}
-
-Food::Food(std::string itemName, double timeToMake, bool temperature, int foodTime, bool isCaffeinated, bool isSweet, bool isSpicy, bool isVegan, bool isVegetarian){
-    Food::itemName = itemName;
-    Food::timeToMake = timeToMake;
-    Food::temperature = temperature;
-    Food::foodTime = foodTime;
-    Food::isCaffeinated = isCaffeinated;
-    Food::isSweet = isSweet;
-    Food::isSpicy = isSpicy;
-    Food::isVegan = isVegan;
-    Food::isVegetarian = isVegetarian;
-}
-
-Food::~Food(){
-
-}
-
-
+//drinks array
 
 int main(){
-    Food *drinkArr[200];
-    Food *foodArr[200];
-
-    Food hotChocolate("Hot Chocolate", 0.1, true, 4, true, true, false, false, true);
 
     drinkArr[0] = &hotChocolate;
+    drinkArr[1] = &Water;
+    drinkArr[2] = &Coffee;
+    drinkArr[3] = &Tea;
+    drinkArr[4] = &Soda;
+    drinkArr[5] = &Smoothie;
+    drinkArr[6] = &Juice;
+
 
     cout << hotChocolate.getItemName() << "'s time to make is " << hotChocolate.getTimeToMake() << " hours" << endl;
     cout << drinkArr[0]->getItemName() << "'s time to make is " << drinkArr[0]->getTimeToMake() << " hours" << endl;
