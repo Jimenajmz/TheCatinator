@@ -1,6 +1,5 @@
 #include <string>
 
-
 using namespace std;
 
 class Food{
@@ -13,10 +12,11 @@ class Food{
         bool isSweet; //TRUE for yes, FALSE for no
         bool isSpicy; //TRUE for yes, FALSE for no
         bool isVegetarian; //TRUE for yes, FALSE for no
+        String recipeURL; //URL of the recipe as a string
 
     public:
         Food();
-        Food(String itemName, double timeToMake, bool temperature, int foodTime, bool isCaffeinated, bool isSweet, bool isSpicy, bool isVegetarian);
+        Food(String itemName, double timeToMake, bool temperature, int foodTime, bool isCaffeinated, bool isSweet, bool isSpicy, bool isVegetarian, String recipeURL);
 
         void setItemName(String name){
             itemName = name;
@@ -41,6 +41,9 @@ class Food{
         }
         void setVegetarian(bool vegetarian){
             isVegetarian = vegetarian;
+        }
+        void setRecipeURL(String uRl){
+            recipeURL = uRl;
         }
 
 
@@ -68,6 +71,9 @@ class Food{
         bool getVegetarian(){
             return isVegetarian;
         }
+        String getRecipeURL(){
+            return recipeURL;
+        }
 
 
         ~Food();
@@ -82,9 +88,10 @@ Food::Food(){
     Food::isSweet = false;
     Food::isSpicy = false;
     Food::isVegetarian = false;
+    Food::recipeURL = "noURL";
 }
 
-Food::Food(String itemName, double timeToMake, bool temperature, int foodTime, bool isCaffeinated, bool isSweet, bool isSpicy, bool isVegetarian){
+Food::Food(String itemName, double timeToMake, bool temperature, int foodTime, bool isCaffeinated, bool isSweet, bool isSpicy, bool isVegetarian, String recipeURL){
     Food::itemName = itemName;
     Food::timeToMake = timeToMake;
     Food::temperature = temperature;
@@ -93,13 +100,95 @@ Food::Food(String itemName, double timeToMake, bool temperature, int foodTime, b
     Food::isSweet = isSweet;
     Food::isSpicy = isSpicy;
     Food::isVegetarian = isVegetarian;
+    Food::recipeURL = recipeURL;
 }
 
 Food::~Food(){
 
 }
 
-//Create globally variables/libs
+//breakfast
+    Food Black_Pudding("Black_Pudding", 0.5, false,0,false,false,false,false, "https://www.epicurious.com/recipes/food/views/black-pudding-51145600");
+    Food Black_Pudding_w_Jam("Black_Pudding_w_Jam", 0.5, false, 0,false,true,false,false, "https://bosskitchen.com/black-pudding-with-blackberry-onion-jam/");
+    Food Frittata_w_Sriracha("Frittata_w_Sriracha", 0.2, false, 0, false, false, true, false, "https://www.loveandlemons.com/frittata-recipe/");
+    Food Bacon("Bacon", 0.2, true,0,false,false,false,false,"https://insanelygoodrecipes.com/bacon-recipes/");
+    Food Cereal("Cereal", 0.0, false,0,false,false,false,true,"https://www.allrecipes.com/recipe/44162/homemade-cereal/");
+    Food Scrambled_Eggs_w_Sriracha("Scrambled_Eggs_w_Sriracha", 0.2, true, 0, false,false,true,false,"https://www.loveandlemons.com/scrambled-eggs-recipe/");
+    Food Donut("Donut", 0.0,false,0,false,true,false,true,"https://sallysbakingaddiction.com/how-to-make-homemade-glazed-doughnuts/");
+    Food Breakfast_Potatoes("Breakfast_Potatoes", 0.5,true,0,false,false,false,true,"https://www.cookingclassy.com/breakfast-potatoes/");
+    Food Applewood_Bacon_Frittata("Applewood_Bacon_Frittata_with_Sriracha", 0.3, false,0,false,true,true,false,"https://www.mealime.com/recipes/apple-bacon-cheddar-frittata/2292");
+    Food Overnight_Masala_Oats("Overnight_Masala_Oats",0.2,false,0,false,false,true,true,"https://www.indianveggiedelight.com/masala-oats/");
+    Food Scrambled_Eggs_w_Jelly("Scrambled_Eggs_w_Jelly", 0.1, true,0,false,true,false,false,"https://www.justapinch.com/recipes/breakfast/egg-breakfast/southwest-scrambled-eggs-with-jalapeno-jelly.html");
+    Food Spicy_maple_breakfast_Sausage("Spicy_maple_breakfast_Sausage", 0.1,true,0,false,true,true,false,"https://www.allrecipes.com/recipe/277678/spicy-maple-breakfast-sausage/");
+    Food cajun_breakfast_potatoes("cajun_breakfast_potatoes", 0.5,true,0,false,false,true,true,"https://sproutingfree.com/easy-vegan-cajun-breakfast-potatoes/");
+    Food Jelly_Toast("Jelly_Toast", 0.1,true,0,false,true,false,true,"https://www.youtube.com/watch?v=42tqwhRlSWg");
+    Food Sweet_and_Spicy_Oatmeal_Bar("Sweet_and_Spicy_Oatmeal_Bar",1,false,0,false,true,true,true,"https://www.providencejournal.com/story/lifestyle/food/recipes/2016/01/06/spicy-oatmeal-bars-are-easy/32790168007/");
+    Food Spicy_Maple_Tofu("Spicy_Maple_Tofu", 0.2, true,0,false,true,true,true,"https://www.macheesmo.com/spicy-maple-tofu/");
+
+//lunch
+    Food Ham_and_Cheese_Sandwhich("Ham_and_Cheese_Sandwhich",0.1,false,1,false,false,false,false,"https://www.delish.com/cooking/recipe-ideas/a26870550/ham-and-cheese-sandwich-recipe/");
+    Food BLT_w_Honey_Sriracha_Mayo("BLT_w_Honey_Sriracha_Mayo", 0.1,false,1,false,true,false,false,"https://www.soulfullymade.com/blt-with-honey-sriracha-mayo/");
+    Food Spicy_Italian_Sub("Spicy_Italian_Sub",0.1,false,1,false,false,true,false,"https://www.lemonsforlulu.com/spicy-italian-subs/#mv-creation-2168-jtr");
+    Food Baked_Chicken("Baked_Chicken", 1, true, 1, false,false,false,false,"https://www.gimmesomeoven.com/baked-chicken-breast/");
+    Food Chopped_Italian_Salad("Chopped_Italian_Salad", 0.2, false,1, false,false,false,true,"https://cookieandkate.com/vegetarian-italian-chopped-salad-recipe/");
+    Food Beef_Curry("Beef_Curry", 1,true,1,false,false,true,false,"https://www.bbcgoodfood.com/recipes/beef-curry");
+    Food Pb_J("Pb_J", 0.1,false,1,false,true,false,true,"https://www.food.com/recipe/traditional-peanut-butter-and-jelly-243965");
+    Food Vegan_Fried_Rice("Vegan_Fried_Rice", 0.3,true,1,false,false,false,true,"https://minimalistbaker.com/easy-vegan-fried-rice/");
+    Food Sweet_and_Spicy_BLT("Sweet_and_Spicy_BLT", 0.2,false,1,false,true,true,false,"https://www.marthastewart.com/945288/sweet-and-spicy-blt-club");
+    Food Vegan_Sichuan_Noodles("Vegan_Sichuan_Noodles", 0.5, false,1,false,false,true,true,"https://veryveganval.com/2019/04/29/spicy-vegan-cold-noodles-sichuan-style/");
+    Food Belgian_Waffles("Belgian_Waffles", 0.5,true,1,false,true,false,false,"https://thesaltymarshmallow.com/homemade-belgian-waffle-recipe/");
+    Food Spicy_Beef_and_Peppers("Spicy_Beef_and_Peppers", 0.2, true,1,false,true,true,false,"https://www.myrecipes.com/recipe/spicy-beef-bell-pepper-stir-fry");
+    Food Kimchi_Stew("Kimchi_Stew", 1,true,1,false,false,true,true,"https://www.maangchi.com/recipe/kimchi-jjigae");
+    Food Blueberry_Pancakes("Blueberry_Pancakes", 0.3,true,1,false,true,false,true,"https://pinchofyum.com/fluffiest-blueberry-pancakes");
+    Food Cold_Korean_Noodles("Cold_Korean_Noodles", 0.3, false,1,false,true,true,true,"https://okonomikitchen.com/bibim-gaksu-korean-spicy-cold-noodles/");
+    Food Sweet_and_Spicy_tofu("Sweet_and_Spicy_tofu", 0.5, true, 1, false, true,true,true,"https://peasandcrayons.com/2018/10/spicy-sriracha-tofu.html");
+
+//dinner
+    Food Ham_Sandwhich("Ham_Sandwhich", 0.1,false,2,false,false,false,false,"https://www.delish.com/cooking/recipe-ideas/a26870550/ham-and-cheese-sandwich-recipe/");
+    Food BLT_with_Honey_Sriracha_Mayo("BLT_with_Honey_Sriracha_Mayo",0.2,false,2,false,true,false,false,"https://www.soulfullymade.com/blt-with-honey-sriracha-mayo/");
+    Food Italian_Spicy_Sub("Italian_Spicy_Sub",0.2,false,2,false,false,true,false,"https://www.lemonsforlulu.com/spicy-italian-subs/#mv-creation-2168-jtr");
+    Food Smoked_salmon("Smoked_salmon", 0.5,true,2,false,false,false,false,"https://honest-food.net/how-to-smoke-salmon-recipe/");
+    Food Cucumber_Salad("Cucumber_Salad", 0.2, false, 2, false, false,false,true,"https://www.foodandwine.com/recipes/cucumber-salad");
+    Food Pad_Thai("Pad_Thai", 0.5, true, 2,false,false,true,false,"https://www.recipetineats.com/chicken-pad-thai/");
+    Food Acai_Bowl("Acai_Bowl", 0.2, false, 2, false, true,false, true,"https://theforkedspoon.com/acai-bowl/");
+    Food Shpherds_Pie("Shpherds_Pie", 2, true, 2,false,false,false,true,"https://therealfooddietitians.com/shepherds-pie/");
+    Food Spicy_Vegan_Korean_Noodles("Spicy_Vegan_Korean_Noodles", 0.3, false, 2, false, false, true, true,"https://thefoodietakesflight.com/vegan-bibim-guksu/");
+    Food Szechuan_Noodles("Szechuan_Noodles", 0.5, false, 2, false, true,true, false,"https://www.food.com/recipe/szechuan-noodles-with-spicy-beef-sauce-48760");
+    Food Zucchini_Pasta("Zucchini_Pasta", 1, true, 2, false, false, false, true,"https://cooking.nytimes.com/recipes/1022458-caramelized-zucchini-pasta");
+    Food Sweet_and_Spicy_Chicken("Sweet_and_Spicy_Chicken", 0.5, true, 2, false, true,true,false,"https://30minutesmeals.com/sweet-spicy-chicken/");
+    Food Korean_Cold_Noodles("Korean_Cold_Noodles", 0.2, false, 2, false, false, true, true,"https://www.simplyrecipes.com/recipes/korean_spicy_cold_noodles/");
+    Food Spicy_Kimchi_Stew("Spicy_Kimchi_Stew", 0.2, true, 2, false, false, true, true,"https://www.thespruceeats.com/spicy-kimchi-stew-kimchi-jjigae-2118939");
+    Food Almond_Milk_French_Toast("Almond_Milk_French_Toast", 0.2, true, 2, false, true, false, true,"https://soeasybeinggreen-blog.com/deliciously-simple-french-toast-made-almondmilk/");
+    Food Sweet_and_Spicy_Tofu("Sweet_and_Spicy_Tofu", 0.4, true, 2, false, true,true,true,"https://peasandcrayons.com/2018/10/spicy-sriracha-tofu.html");
+
+//snacks
+    Food Beef_Jerky("Beef_Jerky", 0.0, false, 4, false,false,false,false,"https://www.onceuponachef.com/recipes/the-best-homemade-beef-jerky-recipe.html");
+    Food Candy_Bacon("Candy_Bacon", 0.2, false, 4, false, true, false, false,"https://www.simplyrecipes.com/recipes/how_to_make_candied_bacon/");
+    Food Beef_Stick("Beef_Stick", 0.0, false, 4, false, false, true, false,"https://betterbegrilled.com/recipes/smoked-beef-sticks");
+    Food Pizza_Rolls("Pizza_Rolls", 0.2, true, 4, false, false, true, false,"https://gopuff.com/quick_meals/frozen_pizza/totino_s_frozen_pepperoni_pizza_rolls_15ct_7_5oz");
+    Food Cucumber("Cucumber", 0.0, false, 4, false, false, false,true,"https://thriftandspice.com/mexican-cucumber-snack/");
+    Food Buffalo_Wings("Buffalo_Wings", 0.3, true, 4, false, false, true, false,"https://natashaskitchen.com/buffalo-wings-recipe/");
+    Food Twix("Twix", 0.0, false, 4, false, true,false,true,"https://www.twix.com/where-to-buy?gclid=CjwKCAjwx46TBhBhEiwArA_DjPsDctKznnc5hIRx5yYh--_eJSHuKo_VOthpjZZMrdpATEQrpPHl6RoCbgwQAvD_BwE&gclsrc=aw.ds");
+    Food Sweet_and_Spicy_Jerky("Sweet_and_Spicy_Jerky", 0.2, false, 4, false, true,true,false,"https://www.allrecipes.com/recipe/86194/jerky-lovers-jerky-sweet-hot-and-spicy/");
+    Food Oatmeal_Cookies("Oatmeal_Cookies", 0.5, true, 4, false, true, false, true,"https://www.allrecipes.com/recipe/19247/soft-oatmeal-cookies/");
+    Food Sweet_Chili_Chicken_Bites("Sweet_Chili_Chicken_Bites", 0.3, true, 4, false, true, false, false,"https://www.aheadofthyme.com/sweet-chili-chicken-bites/");
+    Food Kimchi ("Kimchi", 0.0, false, 4, false, false, true, true,"https://www.feastingathome.com/how-to-make-kimchi/");
+    Food Honey_Garlic_Chicken_Bites("Honey_Garlic_Chicken_Bites", 0.3, true, 4, false, true, true, false,"https://www.eatwell101.com/honey-garlic-chicken-recipe");
+    Food Spicy_Queso("Spicy_Queso", 0.1, true, 4, false, false, true, true,"https://www.myrecipes.com/recipe/spicy-queso-dip");
+    Food Chili_Dark_Chocolate("Chili_Dark_Chocolate", 0.0, false, 4, false, true, true, true,"https://www.lindtusa.com/chili-excellence-bar-438092");
+    Food Apple_Pie("Apple_Pie", 2, true, 4, false, true, false, true,"https://www.pillsbury.com/recipes/perfect-apple-pie/1fc2b60f-0a4f-441e-ad93-8bbd00fe5334");
+    Food Tteokbokki("Tteokbokki", 0.3, true, 4, false, true,true,true,"https://mykoreankitchen.com/tteokbokki-spicy-rice-cakes/");
+
+//drinks
+    Food hotChocolate("Hot Chocolate", 0.1, true, 4, true, true, false, true,"https://celebratingsweets.com/homemade-hot-chocolate/");  
+    Food Water("Water", 0.0, false, 4, false, false, false,true,"https://www.youtube.com/watch?v=_9N-Y2CyYhM");
+    Food Coffee("Coffee", 0.1, true, 0, true, false, false, true,"https://www.illy.com/en-us/coffee/coffee-preparation/how-to-use-a-french-press#:~:text=Add%20a%20heaping%20tablespoon%20(7,stand%20for%203%2D4%20minutes");
+    Food Tea("Tea", 0.1, true, 4, true, false, false, true,"https://shewearsmanyhats.com/how-to-make-tea/");
+    Food Soda("Soda", 0.0, false, 4, true, true, false, true,"https://www.escoffieronline.com/brewing-your-own-soda/");
+    Food Smoothie("Smoothie", 0.2, false, 4, false, true, false,  true,"https://www.acouplecooks.com/healthy-easy-smoothie-recipes/");
+    Food Juice("Juice", 0.0, false, 4, false, true, false, true,"https://www.yummymummykitchen.com/2021/02/juicing-recipes.html");
+
+//Create global arrays to point to food objects
 Food *drinkArr[200];
 Food *foodArr[200];
 int numDrinks = 7;
@@ -110,22 +199,17 @@ Food *foodReccomendations[200];
 int numDrinkRecc = 0;
 int numFoodRecc = 0;
 
-int buttonYesPIN = D0;
-int buttonNoPIN = D1;
-int buttonAPIN = D2;
-int buttonBPIN = D3;
-int buttonCPIN = D4;
-int buttonTestPIN = D5;
-int LCDPIN1 = A0;
-int LCDPIN2 = A1;
-
+//Final reccomended item object
 Food reccomendedItem;
 
-String sheetNumber;
-String reccomendedItemURL;
+//strings to hold the reccomended item's name and recipe URL
+String reccomendedItemURL = "noURLEstablished";
+String reccomendedItemName = "noNameEstablished";
 
+//1 or 0 to represent the button states
 int buttonYes, buttonNo, buttonA, buttonB, buttonC, buttonTest;
 
+//booleans and ints to represent what the user wants after the questions
 bool foodOrDrink = false; //false for food, true for dink
 bool tempDesired = false; //false for cold, true for hot
 bool desiredCaffeine = false; // false for no, true for yes
@@ -135,86 +219,18 @@ bool desiredVegetarian = false; //false for no, true for yes
 int currTime; //current hour in UTC-6 (centeral standard time)
 int mealTime; //0=breakfast, 1=lunch, 2=dinner, 4=snack
 
-bool foodSearchElements[4] = {false};
-bool drinkSearchElements[3] = {false};
-
-const char event[250];
+//particle pin numbers
+int buttonYesPIN = D0;
+int buttonNoPIN = D1;
+int buttonAPIN = D2;
+int buttonBPIN = D3;
+int buttonCPIN = D4;
+int buttonTestPIN = D5;
+int LCDPIN1 = A0;
+int LCDPIN2 = A1;
 
 void setup(){
-    //breakfast
-    Food Black_Pudding("Black_Pudding", 0.5, false,0,false,false,false,false);
-    Food Black_Pudding_w_Jam("Black_Pudding_w_Jam", 0.5, false, 0,false,true,false,false);
-    Food Frittata_w_Sriracha("Frittata_w_Sriracha", 0.2, false, 0, false, false, true, false);
-    Food Bacon("Bacon", 0.2, true,0,false,false,false,false);
-    Food Cereal("Cereal", 0.0, false,0,false,false,false,true);
-    Food Scrambled_Eggs_w_Sriracha("Scrambled_Eggs_w_Sriracha", 0.2, true, 0, false,false,true,false);
-    Food Donut("Donut", 0.0,false,0,false,true,false,true);
-    Food Breakfast_Potatoes("Breakfast_Potatoes", 0.5,true,0,false,false,false,true);
-    Food Applewood_Bacon_Frittata("Applewood_Bacon_Frittata_with_Sriracha", 0.3, false,0,false,true,true,false);
-    Food Overnight_Masala_Oats("Overnight_Masala_Oats",0.2,false,0,false,false,true,true);
-    Food Scrambled_Eggs_w_Jelly("Scrambled_Eggs_w_Jelly", 0.1, true,0,false,true,false,false);
-    Food Spicy_maple_breakfast_Sausage("Spicy_maple_breakfast_Sausage", 0.1,true,0,false,true,true,false);
-    Food cajun_breakfast_potatoes("cajun_breakfast_potatoes", 0.5,true,0,false,false,true,true);
-    Food Jelly_Toast("Jelly_Toast", 0.1,true,0,false,true,false,true);
-    Food Sweet_and_Spicy_Oatmeal_Bar("Sweet_and_Spicy_Oatmeal_Bar",1,false,0,false,true,true,true);
-    Food Spicy_Maple_Tofu("Spicy_Maple_Tofu", 0.2, true,0,false,true,true,true);
-
-    //lunch
-    Food Ham_and_Cheese_Sandwhich("Ham_and_Cheese_Sandwhich",0.1,false,1,false,false,false,false);
-    Food BLT_w_Honey_Sriracha_Mayo("BLT_w_Honey_Sriracha_Mayo", 0.1,false,1,false,true,false,false);
-    Food Spicy_Italian_Sub("Spicy_Italian_Sub",0.1,false,1,false,false,true,false);
-    Food Baked_Chicken("Baked_Chicken", 1, true, 1, false,false,false,false);
-    Food Chopped_Italian_Salad("Chopped_Italian_Salad", 0.2, false,1, false,false,false,true);
-    Food Beef_Curry("Beef_Curry", 1,true,1,false,false,true,false);
-    Food Pb_J("Pb_J", 0.1,false,1,false,true,false,true);
-    Food Vegan_Fried_Rice("Vegan_Fried_Rice", 0.3,true,1,false,false,false,true);
-    Food Sweet_and_Spicy_BLT("Sweet_and_Spicy_BLT", 0.2,false,1,false,true,true,false);
-    Food Vegan_Sichuan_Noodles("Vegan_Sichuan_Noodles", 0.5, false,1,false,false,true,true);
-    Food Belgian_Waffles("Belgian_Waffles", 0.5,true,1,false,true,false,false);
-    Food Spicy_Beef_and_Peppers("Spicy_Beef_and_Peppers", 0.2, true,1,false,true,true,false);
-    Food Kimchi_Stew("Kimchi_Stew", 1,true,1,false,false,true,true);
-    Food Blueberry_Pancakes("Blueberry_Pancakes", 0.3,true,1,false,true,false,true);
-    Food Cold_Korean_Noodles("Cold_Korean_Noodles", 0.3, false,1,false,true,true,true);
-    Food Sweet_and_Spicy_tofu("Sweet_and_Spicy_tofu", 0.5, true, 1, false, true,true,true);
-
-    //dinner
-    Food Ham_Sandwhich("Ham_Sandwhich", 0.1,false,2,false,false,false,false);
-    Food BLT_with_Honey_Sriracha_Mayo("BLT_with_Honey_Sriracha_Mayo",0.2,false,2,false,true,false,false);
-    Food Italian_Spicy_Sub("Italian_Spicy_Sub",0.2,false,2,false,false,true,false);
-    Food Smoked_salmon("Smoked_salmon", 0.5,true,2,false,false,false,false);
-    Food Cucumber_Salad("Cucumber_Salad", 0.2, false, 2, false, false,false,true);
-    Food Pad_Thai("Pad_Thai", 0.5, true, 2,false,false,true,false);
-    Food Acai_Bowl("Acai_Bowl", 0.2, false, 2, false, true,false, true);
-    Food Shpherds_Pie("Shpherds_Pie", 2, true, 2,false,false,false,true);
-    Food Spicy_Vegan_Korean_Noodles("Spicy_Vegan_Korean_Noodles", 0.3, false, 2, false, false, true, true);
-    Food Szechuan_Noodles("Szechuan_Noodles", 0.5, false, 2, false, true,true, false);
-    Food Zucchini_Pasta("Zucchini_Pasta", 1, true, 2, false, false, false, true);
-    Food Sweet_and_Spicy_Chicken("Sweet_and_Spicy_Chicken", 0.5, true, 2, false, true,true,false);
-    Food Korean_Cold_Noodles("Korean_Cold_Noodles", 0.2, false, 2, false, false, true, true);
-    Food Spicy_Kimchi_Stew("Spicy_Kimchi_Stew", 0.2, true, 2, false, false, true, true);
-    Food Almond_Milk_French_Toast("Almond_Milk_French_Toast", 0.2, true, 2, false, true, false, true);
-    Food Sweet_and_Spicy_Tofu("Sweet_and_Spicy_Tofu", 0.4, true, 2, false, true,true,true);
-
-    //snacks
-    Food Beef_Jerky("Beef_Jerky", 0.0, false, 4, false,false,false,false);
-    Food Candy_Bacon("Candy_Bacon", 0.2, false, 4, false, true, false, false);
-    Food Beef_Stick("Beef_Stick", 0.0, false, 4, false, false, true, false);
-    Food Pizza_Rolls("Pizza_Rolls", 0.2, true, 4, false, false, true, false);
-    Food Cucumber("Cucumber", 0.0, false, 4, false, false, false,true);
-    Food Buffalo_Wings("Buffalo_Wings", 0.3, true, 4, false, false, true, false);
-    Food Twix("Twix", 0.0, false, 4, false, true,false,true);
-    Food Sweet_and_Spicy_Jerky("Sweet_and_Spicy_Jerky", 0.2, false, 4, false, true,true,false);
-    Food Oatmeal_Cookies("Oatmeal_Cookies", 0.5, true, 4, false, true, false, true);
-    Food Sweet_Chili_Chicken_Bites("Sweet_Chili_Chicken_Bites", 0.3, true, 4, false, true, false, false);
-    Food Kimchi ("Kimchi", 0.0, false, 4, false, false, true, true);
-    Food Honey_Garlic_Chicken_Bites("Honey_Garlic_Chicken_Bites", 0.3, true, 4, false, true, true, false);
-    Food Spicy_Queso("Spicy_Queso", 0.1, true, 4, false, false, true, true);
-    Food Chili_Dark_Chocolate("Chili_Dark_Chocolate", 0.0, false, 4, false, true, true, true);
-    Food Apple_Pie("Apple_Pie", 2, true, 4, false, true, false, true);
-    Food Tteokbokki("Tteokbokki", 0.3, true, 4, false, true,true,true);
-
-
-    //food array
+    //food array setting
     foodArr[0]= &Black_Pudding;
     foodArr[1]= &Black_Pudding_w_Jam;
     foodArr[2]= &Frittata_w_Sriracha;
@@ -280,20 +296,7 @@ void setup(){
     foodArr[62]= &Chili_Dark_Chocolate;
     foodArr[63]= &Tteokbokki;
 
-
-    //driks
-
-    Food hotChocolate("Hot Chocolate", 0.1, true, 4, true, true, false, true);  
-    Food Water("Water", 0.0, false, 4, false, false, false,true);
-    Food Coffee("Coffee", 0.1, true, 0, true, false, false, true);
-    Food Tea("Tea", 0.1, true, 4, true, false, false, true);
-    Food Soda("Soda", 0.0, false, 4, true, true, false, true);
-    Food Smoothie("Smoothie", 0.2, false, 4, false, true, false,  true);
-    Food Juice("Juice", 0.0, false, 4, false, true, false, true);
-
-
-    //drinks array
-
+    //drinks array setting
     drinkArr[0] = &hotChocolate;
     drinkArr[1] = &Water;
     drinkArr[2] = &Coffee;
@@ -302,7 +305,7 @@ void setup(){
     drinkArr[5] = &Smoothie;
     drinkArr[6] = &Juice;
 
-    //initialize digital pins
+    //initialize particle pins
     pinMode(buttonYesPIN, INPUT);
     pinMode(buttonNoPIN, INPUT);
     pinMode(buttonAPIN, INPUT);
@@ -312,13 +315,15 @@ void setup(){
     pinMode(LCDPIN1, OUTPUT);
     pinMode(LCDPIN2, OUTPUT);
 
-
+    //set time zone
     Time.zone(-6);
 
+    //create cloud variable to store the url of the reccomended item so IFTTT can access it
     Particle.variable("reccURL", reccomendedItemURL);
-
 }
 
+//Function to get the A or B button press
+//waits for input until entered
 bool buttonABPress(){
     while(buttonA == 0 && buttonB == 0){
         buttonA = digitalRead(buttonAPIN);
@@ -330,42 +335,116 @@ bool buttonABPress(){
     return false;
 }
 
+/*
+prints to LCD to ask the user if they want food or drink
+calls buttonABPress() to get the button press
+
+"Are you hungry?"
+"A: Yes"
+"B: No"
+
+since buttonABPress returns true if A is pressed and false is the
+bool for food, we have to take the not choice output from buttonABPress
+*/
 bool askForFoodOrDrink(){
     //insert code here to push to the screen
     bool choice = buttonABPress();
     return !choice;
 }
 
+/*
+prints to LCD to ask the user if they want a hot item
+calls buttonABPress() to get the button press
+
+"Should it be hot?"
+"A: Yes"
+"B: No"
+*/
 bool askForDesiredTemp(){
     //insert code here to push to screen (Do you want a hot drink?)
 
     return buttonABPress();
 }
 
+/*
+prints to LCD to ask the user if they want a caffeinated item
+calls buttonABPress() to get the button press
+
+"Are you tired?"
+"A: Yes"
+"B: No"
+*/
 bool askForDesiredCaffeine(){
     //insert code here to push to screen (Do you want it to have caffeine?)
 
     return buttonABPress();
 }
 
+/*
+prints to LCD to ask the user if they want something sweet
+calls buttonABPress() to get the button press
+
+"Should it be sweet?"
+"A: Yes"
+"B: No"
+*/
 bool askForDesiredSweet(){
     //insert code here to push to screen (should it be sweet?)
 
     return buttonABPress();
 }
 
+/*
+prints to LCD to ask the user if they want something spicy
+calls buttonABPress() to get the button press
+
+"Should it be spicy?"
+"A: Yes"
+"B: No"
+*/
 bool askForDesiredSpice(){
     //insert code here to push to screen (spicy?)
 
     return buttonABPress();
 }
 
+/*
+prints to LCD to ask the user if they want something vegetarian
+calls buttonABPress() to get the button press
+
+"Should it be vegetarian?"
+"A: Yes"
+"B: No"
+*/
 bool askForVegetarian(){
     //inset code here to push to screen (vegetarian?)
 
     return buttonABPress();
 }
 
+/*
+prints to LCD to ask the user if they want to run the catinator again
+calls buttonABPress() to get the button press
+
+"Run Catinator again?"
+"A: Yes"
+"B: No"
+*/
+bool continueCatinator(){
+    //insert code to push to screen (run catinator again?)
+
+    return buttonABPress();
+}
+
+/*
+Searches through foodArr sequentially to see if the object each index is pointing to matches the
+attributes the user requested
+
+returns the Food object that the index is pointing to
+
+If there are more than one food item that match the user's requirements, then this function
+chooses a random element from an array that holds pointers to matching Food objects
+*/
 Food searchForFood(int mealTime, bool desiredSweet, bool desiredSpice, bool tempDesired, bool desiredVegetarian){
     int j = 0;
     for(int i = 0; i < numFoods; i++){
@@ -383,6 +462,15 @@ Food searchForFood(int mealTime, bool desiredSweet, bool desiredSpice, bool temp
     }
 }
 
+/*
+Searches through drinkArr sequentially to see if the object each index is pointing to matches the
+attributes the user requested
+
+returns the Food object that the index is pointing to
+
+If there are more than one food item that match the user's requirements, then this function
+chooses a random element from an array that holds pointers to matching Food objects
+*/
 Food searchForDrink(int mealTime, bool desiredSweet, bool tempDesired, bool desiredCaffeine){
     int j = 0;
     for(int i = 0; i < numDrinks; i++){
@@ -400,18 +488,36 @@ Food searchForDrink(int mealTime, bool desiredSweet, bool tempDesired, bool desi
     }
 }
 
-void getChosenItemURL(String reccomendedItem){
-    event = "Hook-response/" + reccomendedItem;
-    Particle.subscribe(event, hookHandler, MY_DEVICES);
-}
+/*
+Loop executes only number of times the user wants
 
-String hookHandler(const char *event, const char *data){
-    String thisURL = String(data);
-    return thisURL;
-}
+Starts by grabbing the current button states.  If the test button is pressed during boot up or before 
+sequential run throughs, then the Catinator will enter "test mode" which is a demonstration for the 
+IoT project fair.
 
+After grabbing button states, the current hour is grabbed and assigned to an integer to represent
+which meal the hour falls into (Breakfast, lunch, dinner, or snack)
 
+Then, we call the askForFoodOrDrink() function to ask the user if they want something to eat or drink
+if they want food, then we ask them the following:
+    Should the food be sweet
+    Should the food be spicy
+    Should the food be hot or cold
+    Should the food be vegetarian
 
+If they want drink:
+    Should it be Sweet
+    Should it be hot or cold
+    Should it have caffeine
+
+Then, we take that information and either call the searchForFood() or searchForDrink functions to parse
+the main pointer arrays to find a food or drink that matches the user's requirements
+
+Then, after we get an item that they like, we update the reccomendedItemURL string variable with
+a URL to that item's recipe.  This update triggers an If This Then That Applet that sends an email to a 
+predefined email address with this URL.
+
+*/
 void loop(){
     buttonA = digitalRead(buttonAPIN);
     buttonB = digitalRead(buttonBPIN);
@@ -419,7 +525,9 @@ void loop(){
     buttonYes = digitalRead(buttonYesPIN);
     buttonNo = digitalRead(buttonNoPIN);
     buttonTest = digitalRead(buttonTestPIN);
+
     currTime = Time.hour();
+    
     if(currTime > 5 && currTime < 12){
         mealTime == 0;//breakfast
     }
@@ -434,9 +542,7 @@ void loop(){
     }
 
     if(buttonTest == 1){//hold test button from particle boot to initialize the hardcoded script
-        /*
-        Insert code here for hardcoded test variant
-        */
+        //TODO: HARDCODE THIS PART
     }
 
     //ask if hungry or thirsty, return true for drink, false for food
@@ -453,29 +559,30 @@ void loop(){
         desiredSweet = askForDesiredSweet();
         tempDesired = askForDesiredTemp();
         desiredCaffeine = askForDesiredCaffeine();
-        reccomendedItem = searchForDrink(mealTime, desiredSweet, tempDesired, desiredCaffeine);
-        if(mealTime == 0){
-        }
-        else{
+        if(mealTime != 0){
             mealTime = 4;
         }
+        reccomendedItem = searchForDrink(mealTime, desiredSweet, tempDesired, desiredCaffeine);
 
     }
-    String recomendedItemName = reccomendedItem.getItemName();
+    reccomendedItemName = reccomendedItem.getItemName();
+    reccomendedItemURL = reccomendedItem.getRecipeURL();
 
-    getChosenItemURL(recomendedItemName);
-    reccomendedItemURL = hookHandler();
+    //TODO: INSERT CODE HERE FOR SERVO
 
+    bool continueCat = continueCatinator();
+    if(continueCat != true){
+        //TODO:  FIGURE OUT WHAT TO DO IF THEY DON'T WANT TO CONTINUE CATINATOR
+    }
 
 
 }
-
-
-
-
 
 /*
 SHEET PUBLISH URL: https://docs.google.com/spreadsheets/d/e/2PACX-1vQjwLppuLNXVJOfKttuirwGfJumym55-kroePQEsxrdmYDsjf5ptqErrBQrrhAhspJN-u2uJYnEh75h/pubhtml
 SHEET DOCUMENT ID: 1j3hOhOop3JSAOlft1MeWzy6ohqzPoidtYxya51j3hB0
 Example URL (HC):  http://gsx2json.com/api?id=1j3hOhOop3JSAOlft1MeWzy6ohqzPoidtYxya51j3hB0&sheet=1&q=Hot_Chocolate
+
+
+Code Verified by build.particle.io 24 April 2022 6:15PM
 */

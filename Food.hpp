@@ -42,7 +42,7 @@ class Food{
         void setVegetarian(bool vegetarian){
             isVegetarian = vegetarian;
         }
-        void setRecipeURL(string uRl){
+        void setRecipeURL(std::string uRl){
             recipeURL = uRl;
         }
 
