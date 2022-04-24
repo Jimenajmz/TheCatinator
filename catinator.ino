@@ -464,7 +464,7 @@ void loop(){
         mealTime == 4;//snack
     }
 
-    if(buttonTest == 1){
+    if(buttonTest == 1){//hold test button from particle boot to initialize the hardcoded script
         /*
         Insert code here for hardcoded test variant
         */
