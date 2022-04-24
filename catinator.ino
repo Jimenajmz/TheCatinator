@@ -196,22 +196,22 @@ void setup(){
     Food Sweet_and_Spicy_Tofu("Sweet_and_Spicy_Tofu", 0.4, true, 2, false, true,true,true);
 
     //snacks
-    Food Beef_Jerky("Beef_Jerky", 0.0, false, 3, false,false,false,false);
-    Food Candy_Bacon("Candy_Bacon", 0.2, false, 3, false, true, false, false);
-    Food Beef_Stick("Beef_Stick", 0.0, false, 3, false, false, true, false);
-    Food Pizza_Rolls("Pizza_Rolls", 0.2, true, 3, false, false, true, false);
-    Food Cucumber("Cucumber", 0.0, false, 3, false, false, false,true);
-    Food Buffalo_Wings("Buffalo_Wings", 0.3, true, 3, false, false, true, false);
-    Food Twix("Twix", 0.0, false, 3, false, true,false,true);
-    Food Sweet_and_Spicy_Jerky("Sweet_and_Spicy_Jerky", 0.2, false, 3, false, true,true,false);
-    Food Oatmeal_Cookies("Oatmeal_Cookies", 0.5, true, 3, false, true, false, true);
-    Food Sweet_Chili_Chicken_Bites("Sweet_Chili_Chicken_Bites", 0.3, true, 3, false, true, false, false);
-    Food Kimchi ("Kimchi", 0.0, false, 3, false, false, true, true);
-    Food Honey_Garlic_Chicken_Bites("Honey_Garlic_Chicken_Bites", 0.3, true, 3, false, true, true, false);
-    Food Spicy_Queso("Spicy_Queso", 0.1, true, 3, false, false, true, true);
-    Food Chili_Dark_Chocolate("Chili_Dark_Chocolate", 0.0, false, 3, false, true, true, true);
-    Food Apple_Pie("Apple_Pie", 2, true, 3, false, true, false, true);
-    Food Tteokbokki("Tteokbokki", 0.3, true, 3, false, true,true,true);
+    Food Beef_Jerky("Beef_Jerky", 0.0, false, 4, false,false,false,false);
+    Food Candy_Bacon("Candy_Bacon", 0.2, false, 4, false, true, false, false);
+    Food Beef_Stick("Beef_Stick", 0.0, false, 4, false, false, true, false);
+    Food Pizza_Rolls("Pizza_Rolls", 0.2, true, 4, false, false, true, false);
+    Food Cucumber("Cucumber", 0.0, false, 4, false, false, false,true);
+    Food Buffalo_Wings("Buffalo_Wings", 0.3, true, 4, false, false, true, false);
+    Food Twix("Twix", 0.0, false, 4, false, true,false,true);
+    Food Sweet_and_Spicy_Jerky("Sweet_and_Spicy_Jerky", 0.2, false, 4, false, true,true,false);
+    Food Oatmeal_Cookies("Oatmeal_Cookies", 0.5, true, 4, false, true, false, true);
+    Food Sweet_Chili_Chicken_Bites("Sweet_Chili_Chicken_Bites", 0.3, true, 4, false, true, false, false);
+    Food Kimchi ("Kimchi", 0.0, false, 4, false, false, true, true);
+    Food Honey_Garlic_Chicken_Bites("Honey_Garlic_Chicken_Bites", 0.3, true, 4, false, true, true, false);
+    Food Spicy_Queso("Spicy_Queso", 0.1, true, 4, false, false, true, true);
+    Food Chili_Dark_Chocolate("Chili_Dark_Chocolate", 0.0, false, 4, false, true, true, true);
+    Food Apple_Pie("Apple_Pie", 2, true, 4, false, true, false, true);
+    Food Tteokbokki("Tteokbokki", 0.3, true, 4, false, true,true,true);
 
 
     //food array
@@ -319,82 +319,51 @@ void setup(){
 
 }
 
-bool askForFoodOrDrink(){
-    //insert code here to push to the screen
-
+bool buttonABPress(){
     while(buttonA == 0 && buttonB == 0){
         buttonA = digitalRead(buttonAPIN);
         buttonB = digitalRead(buttonBPIN);
-        if(buttonA == 1){ // food/hungry
-            return false;
+        if(buttonA == 1){
+            return true;
         }
     }
-    return true;
+    return false;
+}
+
+bool askForFoodOrDrink(){
+    //insert code here to push to the screen
+    bool choice = buttonABPress();
+    return !choice;
 }
 
 bool askForDesiredTemp(){
     //insert code here to push to screen (Do you want a hot drink?)
 
-    while(buttonYes == 0 && buttonNo == 0){
-        buttonYes = digitalRead(buttonYesPIN);
-        buttonNo = digitalRead(buttonNoPIN);
-        if(buttonYes == 1){ // hot
-            return true;
-        }
-    }
-    return false;
+    return buttonABPress();
 }
 
 bool askForDesiredCaffeine(){
     //insert code here to push to screen (Do you want it to have caffeine?)
 
-    while(buttonYes == 0 && buttonNo == 0){
-        buttonYes = digitalRead(buttonYesPIN);
-        buttonNo = digitalRead(buttonNoPIN);
-        if(buttonYes == 1){ // caffeine
-            return true;
-        }
-    }
-    return false;
+    return buttonABPress();
 }
 
 bool askForDesiredSweet(){
     //insert code here to push to screen (should it be sweet?)
 
-    while(buttonYes == 0 && buttonNo == 0){
-        buttonYes = digitalRead(buttonYesPIN);
-        buttonNo = digitalRead(buttonNoPIN);
-        if(buttonYes == 1){ // sweet
-            return true;
-        }
-    }
-    return false;
+    return buttonABPress();
 }
 
 bool askForDesiredSpice(){
     //insert code here to push to screen (spicy?)
 
-    while(buttonYes == 0 && buttonNo == 0){
-        buttonYes = digitalRead(buttonYesPIN);
-        buttonNo = digitalRead(buttonNoPIN);
-        if(buttonYes == 1){ // spicy
-            return true;
-        }
-    }
-    return false;
+    return buttonABPress();
 }
 
 bool askForVegetarian(){
     //inset code here to push to screen (vegetarian?)
 
-    while(buttonYes == 0 && buttonNo == 0){
-        buttonYes = digitalRead(buttonYesPIN);
-        buttonNo = digitalRead(buttonNoPIN);
-        if(buttonYes == 1){ // vegetarian
-            return true;
-        }
-    }
-    return false;
+    return buttonABPress();
 }
 
 Food searchForFood(int mealTime, bool desiredSweet, bool desiredSpice, bool tempDesired, bool desiredVegetarian){
@@ -423,7 +392,7 @@ Food searchForDrink(int mealTime, bool desiredSweet, bool tempDesired, bool desi
             numDrinkRecc++;
         }
     }
-    if(numFoodRecc == 0){
+    if(numDrinkRecc == 0){
         return *drinkArr[1];
     }
     else{
@@ -478,23 +447,20 @@ void loop(){
         desiredSpice = askForDesiredSpice();
         tempDesired = askForDesiredTemp();
         desiredVegetarian = askForVegetarian();
+        reccomendedItem = searchForFood(mealTime, desiredSweet, desiredSpice, tempDesired, desiredVegetarian);
     }
     else{//drink
         desiredSweet = askForDesiredSweet();
         tempDesired = askForDesiredTemp();
         desiredCaffeine = askForDesiredCaffeine();
-
-    }
-
-    if(foodOrDrink == false){
-        reccomendedItem = searchForFood(mealTime, desiredSweet, desiredSpice, tempDesired, desiredVegetarian);
-        sheetNumber = "Food";
-    }
-    else{
         reccomendedItem = searchForDrink(mealTime, desiredSweet, tempDesired, desiredCaffeine);
-        sheetNumber = "Drinks";
-    }
+        if(mealTime == 0){
+        }
+        else{
+            mealTime == 4;
+        }
 
+    }
     String recomendedItemName = reccomendedItem.getItemName();
 
     getChosenItemURL(recomendedItemName);
