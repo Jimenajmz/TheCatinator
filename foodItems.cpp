@@ -5,6 +5,18 @@ Food *foodArr[200];
 int numDrinks = 7;
 int numFoods = 64;
 
+/*
+FOLLOW THIS CONVENTION:
+Food item_Name("item_Name", timeToMake, temperature, foodTime, isCaffeinated, isSweet, isSpicy, isVegetarian, recipeURL);
+
+Basically, just add the recipe URL as a new paramater after the last boolean.
+
+Ex:  Food hotChocolate("Hot Chocolate", 0.1, true, 4, true, true, false, true, "https://celebratingsweets.com/homemade-hot-chocolate/");
+
+
+
+*/
+
 //breakfast
     Food Black_Pudding("Black_Pudding", 0.5, false,0,false,false,false,false);
     Food Black_Pudding_w_Jam("Black_Pudding_w_Jam", 0.5, false, 0,false,true,false,false);

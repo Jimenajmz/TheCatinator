@@ -12,10 +12,11 @@ class Food{
         bool isSweet; //TRUE for yes, FALSE for no
         bool isSpicy; //TRUE for yes, FALSE for no
         bool isVegetarian; //TRUE for yes, FALSE for no
+        std::string recipeURL;
 
     public:
         Food();
-        Food(std::string itemName, double timeToMake, bool temperature, int foodTime, bool isCaffeinated, bool isSweet, bool isSpicy, bool isVegetarian);
+        Food(std::string itemName, double timeToMake, bool temperature, int foodTime, bool isCaffeinated, bool isSweet, bool isSpicy, bool isVegetarian, std::string recipeURL);
 
         void setItemName(std::string name){
             itemName = name;
@@ -40,6 +41,9 @@ class Food{
         }
         void setVegetarian(bool vegetarian){
             isVegetarian = vegetarian;
+        }
+        void setRecipeURL(string uRl){
+            recipeURL = uRl;
         }
 
 
@@ -67,6 +71,9 @@ class Food{
         bool getVegetarian(){
             return isVegetarian;
         }
+        std::string getRecipeURL(){
+            return recipeURL;
+        }
 
 
         ~Food();
@@ -81,9 +88,10 @@ Food::Food(){
     Food::isSweet = false;
     Food::isSpicy = false;
     Food::isVegetarian = false;
+    Food::recipeURL = "noURL";
 }
 
-Food::Food(std::string itemName, double timeToMake, bool temperature, int foodTime, bool isCaffeinated, bool isSweet, bool isSpicy, bool isVegetarian){
+Food::Food(std::string itemName, double timeToMake, bool temperature, int foodTime, bool isCaffeinated, bool isSweet, bool isSpicy, bool isVegetarian, std::string recipeURL){
     Food::itemName = itemName;
     Food::timeToMake = timeToMake;
     Food::temperature = temperature;
@@ -92,6 +100,7 @@ Food::Food(std::string itemName, double timeToMake, bool temperature, int foodTi
     Food::isSweet = isSweet;
     Food::isSpicy = isSpicy;
     Food::isVegetarian = isVegetarian;
+    Food::recipeURL = recipeURL;
 }
 
 Food::~Food(){
