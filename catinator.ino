@@ -708,7 +708,6 @@ void loop(){
         }
     }
 
-
     prevButtonA = currButtonA;
     prevButtonB = currButtonB;
     prevButtonTest = currButtonTest;
