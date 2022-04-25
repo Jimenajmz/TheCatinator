@@ -1,6 +1,9 @@
 #include <string>
+#include "LiquidCrystal_I2C_Spark.h"
 
 using namespace std;
+
+
 
 class Food{
     private: 
@@ -207,7 +210,7 @@ String reccomendedItemURL = "noURLEstablished";
 String reccomendedItemName = "noNameEstablished";
 
 //1 or 0 to represent the button states
-int buttonYes, buttonNo, buttonA, buttonB, buttonC, buttonTest;
+int buttonA, buttonB, buttonTest;
 
 //booleans and ints to represent what the user wants after the questions
 bool foodOrDrink = false; //false for food, true for dink
@@ -220,14 +223,26 @@ int currTime; //current hour in UTC-6 (centeral standard time)
 int mealTime; //0=breakfast, 1=lunch, 2=dinner, 4=snack
 
 //particle pin numbers
-int buttonYesPIN = D0;
-int buttonNoPIN = D1;
-int buttonAPIN = D2;
-int buttonBPIN = D3;
-int buttonCPIN = D4;
-int buttonTestPIN = D5;
-int LCDPIN1 = A0;
-int LCDPIN2 = A1;
+int buttonAPIN = D5;
+int buttonBPIN = D4;
+int buttonCPIN = D3;
+int buttonTestPIN = D2;
+
+
+LiquidCrystal_I2C lcd(0x27,20,4);
+
+
+int questionCountFood = -1;
+int questionCountDrink = -1;
+
+int currButtonA = LOW;
+int currButtonB = LOW;
+int currButtonTest = LOW;
+int prevButtonA = LOW;
+int prevButtonB = LOW;
+int prevButtonTest = LOW;
+
+bool hasBeenDisplayed = false;
 
 void setup(){
     //food array setting
@@ -306,135 +321,23 @@ void setup(){
     drinkArr[6] = &Juice;
 
     //initialize particle pins
-    pinMode(buttonYesPIN, INPUT);
-    pinMode(buttonNoPIN, INPUT);
-    pinMode(buttonAPIN, INPUT);
-    pinMode(buttonBPIN, INPUT);
-    pinMode(buttonCPIN, INPUT);
-    pinMode(buttonTestPIN, INPUT);
-    pinMode(LCDPIN1, OUTPUT);
-    pinMode(LCDPIN2, OUTPUT);
+    pinMode(buttonAPIN, INPUT_PULLDOWN);
+    pinMode(buttonBPIN, INPUT_PULLDOWN);
+    pinMode(buttonTestPIN, INPUT_PULLDOWN);
 
     //set time zone
     Time.zone(-6);
+    
+    lcd.init();
+    lcd.init();
+    lcd.backlight();
+    lcd.clear();
 
     //create cloud variable to store the url of the reccomended item so IFTTT can access it
     Particle.variable("reccURL", reccomendedItemURL);
+    Particle.variable("reccName", reccomendedItemName);
 }
 
-//Function to get the A or B button press
-//waits for input until entered
-bool buttonABPress(){
-    while(buttonA == 0 && buttonB == 0){
-        buttonA = digitalRead(buttonAPIN);
-        buttonB = digitalRead(buttonBPIN);
-        if(buttonA == 1){
-            return true;
-        }
-    }
-    return false;
-}
-
-/*
-prints to LCD to ask the user if they want food or drink
-calls buttonABPress() to get the button press
-
-"Are you hungry?"
-"A: Yes"
-"B: No"
-
-since buttonABPress returns true if A is pressed and false is the
-bool for food, we have to take the not choice output from buttonABPress
-*/
-bool askForFoodOrDrink(){
-    //insert code here to push to the screen
-    bool choice = buttonABPress();
-    return !choice;
-}
-
-/*
-prints to LCD to ask the user if they want a hot item
-calls buttonABPress() to get the button press
-
-"Should it be hot?"
-"A: Yes"
-"B: No"
-*/
-bool askForDesiredTemp(){
-    //insert code here to push to screen (Do you want a hot drink?)
-
-    return buttonABPress();
-}
-
-/*
-prints to LCD to ask the user if they want a caffeinated item
-calls buttonABPress() to get the button press
-
-"Are you tired?"
-"A: Yes"
-"B: No"
-*/
-bool askForDesiredCaffeine(){
-    //insert code here to push to screen (Do you want it to have caffeine?)
-
-    return buttonABPress();
-}
-
-/*
-prints to LCD to ask the user if they want something sweet
-calls buttonABPress() to get the button press
-
-"Should it be sweet?"
-"A: Yes"
-"B: No"
-*/
-bool askForDesiredSweet(){
-    //insert code here to push to screen (should it be sweet?)
-
-    return buttonABPress();
-}
-
-/*
-prints to LCD to ask the user if they want something spicy
-calls buttonABPress() to get the button press
-
-"Should it be spicy?"
-"A: Yes"
-"B: No"
-*/
-bool askForDesiredSpice(){
-    //insert code here to push to screen (spicy?)
-
-    return buttonABPress();
-}
-
-/*
-prints to LCD to ask the user if they want something vegetarian
-calls buttonABPress() to get the button press
-
-"Should it be vegetarian?"
-"A: Yes"
-"B: No"
-*/
-bool askForVegetarian(){
-    //inset code here to push to screen (vegetarian?)
-
-    return buttonABPress();
-}
-
-/*
-prints to LCD to ask the user if they want to run the catinator again
-calls buttonABPress() to get the button press
-
-"Run Catinator again?"
-"A: Yes"
-"B: No"
-*/
-bool continueCatinator(){
-    //insert code to push to screen (run catinator again?)
-
-    return buttonABPress();
-}
 
 /*
 Searches through foodArr sequentially to see if the object each index is pointing to matches the
@@ -518,63 +421,299 @@ a URL to that item's recipe.  This update triggers an If This Then That Applet t
 predefined email address with this URL.
 
 */
+
+
+
 void loop(){
-    buttonA = digitalRead(buttonAPIN);
-    buttonB = digitalRead(buttonBPIN);
-    buttonC = digitalRead(buttonCPIN);
-    buttonYes = digitalRead(buttonYesPIN);
-    buttonNo = digitalRead(buttonNoPIN);
-    buttonTest = digitalRead(buttonTestPIN);
+    currButtonA = digitalRead(buttonAPIN);
+    currButtonB = digitalRead(buttonBPIN);
+    currButtonTest = digitalRead(buttonTestPIN);
 
     currTime = Time.hour();
-    
     if(currTime > 5 && currTime < 12){
-        mealTime == 0;//breakfast
+        mealTime = 0;//breakfast
     }
     else if(currTime > 11 && currTime < 17){
-        mealTime == 1;//lunch
+        mealTime = 1;//lunch
     }
     else if(currTime > 16 && currTime < 21){
-        mealTime == 2;//dinner
+        mealTime = 2;//dinner
     }
     else{
-        mealTime == 4;//snack
+        mealTime = 4;//snack
     }
 
-    if(buttonTest == 1){//hold test button from particle boot to initialize the hardcoded script
-        //TODO: HARDCODE THIS PART
+    if(questionCountDrink == -1){//initial case when thingy boots up
+        if(hasBeenDisplayed == false){
+            //ASK FOR A to continue
+            lcd.clear();
+            lcd.setCursor(0,0);
+            lcd.print("The Catinator greets");
+            lcd.setCursor(0,1);             
+            lcd.print("you joyfully. With a");
+            lcd.setCursor(0,2);            
+            lcd.print("soft 'meow.'");
+            lcd.setCursor(0,3);             
+            lcd.print("Press A to continue");
+            hasBeenDisplayed = true;
+        }
+        if(prevButtonA == LOW && currButtonA == HIGH){
+            
+            questionCountDrink++;
+            questionCountFood++;
+            hasBeenDisplayed = false;
+            prevButtonA = currButtonA;
+        }
+        if(prevButtonB == LOW && currButtonB == HIGH){
+            //TODO: INSERT HARD CODE HERE
+            // questionCountDrink++;
+            // questionCountFood++;
+            hasBeenDisplayed = false;
+            prevButtonB = currButtonB;
+        }
+        
     }
 
-    //ask if hungry or thirsty, return true for drink, false for food
-    foodOrDrink = askForFoodOrDrink();
+    if(questionCountDrink == 0){
+        if(hasBeenDisplayed == false){
+            //ASK FOR food or drink - button A for food, B for drink
+            lcd.clear();
+            lcd.setCursor(0,0);           
+            lcd.print("Are you hungry?");
+            lcd.setCursor(0,1);             
+            lcd.print("Or are you thirsty?");
+            lcd.setCursor(0,2);            
+            lcd.print("A: hungry");
+            lcd.setCursor(0,3);             
+            lcd.print("B: Thirsty");
+            hasBeenDisplayed = true;
+        }
+        if(prevButtonA == LOW && currButtonA == HIGH){
+            foodOrDrink = false;
+            questionCountDrink++;
+            questionCountFood++;
+            hasBeenDisplayed = false;
+            prevButtonA = currButtonA;
+        }
+        if(prevButtonB == LOW && currButtonB == HIGH){
+            foodOrDrink = true;
+            questionCountDrink++;
+            questionCountFood++;
+            hasBeenDisplayed = false;
+            prevButtonB = currButtonB;
+        }
+    }
+    if(questionCountDrink == 1){
+        if(hasBeenDisplayed == false){
+            //ASK FOR sweet - button A for sweet, B for not sweet
+            lcd.clear();
+            lcd.setCursor(0,0);           
+            lcd.print("Would you like it to");
+            lcd.setCursor(0,1);             
+            lcd.print("be sweet?");
+            lcd.setCursor(0,2);            
+            lcd.print("A: Yes");
+            lcd.setCursor(0,3);             
+            lcd.print("B: No");
+            hasBeenDisplayed = true;
+        }
+        if(prevButtonA == LOW && currButtonA == HIGH){
+            desiredSweet = true;
+            questionCountDrink++;
+            questionCountFood++;
+            hasBeenDisplayed = false;
+            prevButtonA = currButtonA;
+        }
+        if(prevButtonB == LOW && currButtonB == HIGH){
+            desiredSweet = false;
+            questionCountDrink++;
+            questionCountFood++;
+            hasBeenDisplayed = false;
+            prevButtonB = currButtonB;
+        }
+    }
+    if(questionCountDrink == 2){
+        if(hasBeenDisplayed == false){
+            //ASK FOR TEMP - button A for hot, B for cold
+            lcd.clear();
+            lcd.setCursor(0,0);           
+            lcd.print("Would you like it to");
+            lcd.setCursor(0,1);             
+            lcd.print("be hot?");
+            lcd.setCursor(0,2);            
+            lcd.print("A: Yes");
+            lcd.setCursor(0,3);             
+            lcd.print("B: No");
 
-    if(foodOrDrink == false){ //if user wants food
-        desiredSweet = askForDesiredSweet();
-        desiredSpice = askForDesiredSpice();
-        tempDesired = askForDesiredTemp();
-        desiredVegetarian = askForVegetarian();
+            hasBeenDisplayed = true;
+        }
+        if(prevButtonA == LOW && currButtonA == HIGH){
+            tempDesired = true;
+            questionCountDrink++;
+            questionCountFood++;
+            hasBeenDisplayed = false;
+            prevButtonA = currButtonA;
+        }
+        if(prevButtonB == LOW && currButtonB == HIGH){
+            tempDesired = false;
+            questionCountDrink++;
+            questionCountFood++;
+            hasBeenDisplayed = false;
+            prevButtonB = currButtonB;
+        }
+    }
+    if(questionCountFood == 3 && foodOrDrink == false){
+        if(hasBeenDisplayed == false){
+            //ASK FOR spicy - button A for spicy, B for not spicy
+            lcd.clear();
+            lcd.setCursor(0,0);           
+            lcd.print("Would you like it to");
+            lcd.setCursor(0,1);             
+            lcd.print("be spicy?");
+            lcd.setCursor(0,2);            
+            lcd.print("A: Yes");
+            lcd.setCursor(0,3);             
+            lcd.print("B: No");
+            hasBeenDisplayed = true;
+        }
+        if(prevButtonA == LOW && currButtonA == HIGH){
+            desiredSpice = true;
+            questionCountFood++;
+            hasBeenDisplayed = false;
+            prevButtonA = currButtonA;
+        }
+        if(prevButtonB == LOW && currButtonB == HIGH){
+            desiredSpice = false;
+            questionCountFood++;
+            hasBeenDisplayed = false;
+            prevButtonB = currButtonB;
+        }
+    }
+    if(questionCountFood == 4 && foodOrDrink == false){
+        if(hasBeenDisplayed == false){
+            //ASK FOR vegetarian - button A for yes, B for no
+            lcd.clear();
+            lcd.setCursor(0,0);           
+            lcd.print("Would you like it to");
+            lcd.setCursor(0,1);             
+            lcd.print("be vegetarian?");
+            lcd.setCursor(0,2);            
+            lcd.print("A: Yes");
+            lcd.setCursor(0,3);             
+            lcd.print("B: No");
+            hasBeenDisplayed = true;
+        }
+        if(prevButtonA == LOW && currButtonA == HIGH){
+            desiredVegetarian = true;
+            questionCountFood++;
+            hasBeenDisplayed = false;
+            prevButtonA = currButtonA;
+        }
+        if(prevButtonB == LOW && currButtonB == HIGH){
+            desiredVegetarian = false;
+            questionCountFood++;
+            hasBeenDisplayed = false;
+            prevButtonB = currButtonB;
+        }
+    }
+    if(questionCountDrink == 3 && foodOrDrink == true){
+        if(hasBeenDisplayed == false){
+            //ASK FOR caffeine - button A for yes, B for no
+            lcd.clear();
+            lcd.setCursor(0,0);           
+            lcd.print("Would you like it to");
+            lcd.setCursor(0,1);             
+            lcd.print("be caffeinated?");
+            lcd.setCursor(0,2);            
+            lcd.print("A: Yes");
+            lcd.setCursor(0,3);             
+            lcd.print("B: No");
+            hasBeenDisplayed = true;
+        }
+        if(prevButtonA == LOW && currButtonA == HIGH){
+            desiredVegetarian = true;
+            questionCountDrink++;
+            hasBeenDisplayed = false;
+            prevButtonA = currButtonA;
+        }
+        if(prevButtonB == LOW && currButtonB == HIGH){
+            desiredVegetarian = false;
+            questionCountDrink++;
+            hasBeenDisplayed = false;
+            prevButtonB = currButtonB;
+        }
+    }
+    if(questionCountFood == 5 && foodOrDrink == false){
         reccomendedItem = searchForFood(mealTime, desiredSweet, desiredSpice, tempDesired, desiredVegetarian);
+
+        reccomendedItemURL = reccomendedItem.getRecipeURL();
+        reccomendedItemName = reccomendedItem.getItemName();
+        questionCountFood++;
     }
-    else{//drink
-        desiredSweet = askForDesiredSweet();
-        tempDesired = askForDesiredTemp();
-        desiredCaffeine = askForDesiredCaffeine();
+    if(questionCountDrink == 4 && foodOrDrink == true){
         if(mealTime != 0){
             mealTime = 4;
         }
         reccomendedItem = searchForDrink(mealTime, desiredSweet, tempDesired, desiredCaffeine);
-
+        reccomendedItemURL = reccomendedItem.getRecipeURL();
+        reccomendedItemName = reccomendedItem.getItemName();
+        questionCountDrink++;
     }
-    reccomendedItemName = reccomendedItem.getItemName();
-    reccomendedItemURL = reccomendedItem.getRecipeURL();
+    if(questionCountFood == 6 || questionCountDrink == 5){
+        if(hasBeenDisplayed == false){
+            //ASK if want to redo catinator a=y, b=n
+            lcd.clear();
+            lcd.setCursor(0,0);           
+            lcd.print("Would you like to go");
+            lcd.setCursor(0,1);             
+            lcd.print("again?");
+            lcd.setCursor(0,2);            
+            lcd.print("A: Yes");
+            lcd.setCursor(0,3);             
+            lcd.print("B: No");
+            hasBeenDisplayed = true;
+        }
+        if(prevButtonA == LOW && currButtonA == HIGH){
+            questionCountDrink = -1;
+            questionCountFood = -1;
+            hasBeenDisplayed = false;
+            prevButtonA = currButtonA;
+        }
+        if(prevButtonB == LOW && currButtonB == HIGH){
+            questionCountDrink = 10000;
+            questionCountFood = 10000;
+            hasBeenDisplayed = false;
+            prevButtonB = currButtonB;
+        }
+    }
+    if(questionCountDrink == 10000 && questionCountFood == 10000){
+        if(hasBeenDisplayed == false){
+            // display fun catinator slogan
+            lcd.clear();
+            lcd.setCursor(5,0);           
+            lcd.print("Thank you");
+            lcd.setCursor(8,1);             
+            lcd.print("for");
+            lcd.setCursor(6,2);            
+            lcd.print("playing...");
+            lcd.setCursor(8,3);             
+            lcd.print("meow");
+            hasBeenDisplayed = true;
+        }
+        if(prevButtonA == LOW && currButtonA == HIGH){
+            questionCountDrink = -1;
+            questionCountFood = -1;
+            hasBeenDisplayed = false;
+            prevButtonA = currButtonA;
+        }
+    }
 
+
+    prevButtonA = currButtonA;
+    prevButtonB = currButtonB;
+    prevButtonTest = currButtonTest;
+    
     //TODO: INSERT CODE HERE FOR SERVO
-
-    bool continueCat = continueCatinator();
-    if(continueCat != true){
-        //TODO:  FIGURE OUT WHAT TO DO IF THEY DON'T WANT TO CONTINUE CATINATOR
-    }
-
 
 }
 
