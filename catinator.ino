@@ -206,7 +206,7 @@ int numFoodRecc = 0;
 Food reccomendedItem;
 
 //strings to hold the reccomended item's name and recipe URL
-String reccomendedItemURL = "noURLEstablished";
+String reccomendedItemURL = "0";
 String reccomendedItemName = "noNameEstablished";
 
 //1 or 0 to represent the button states
@@ -699,6 +699,7 @@ void loop(){
             lcd.setCursor(8,3);             
             lcd.print("meow");
             hasBeenDisplayed = true;
+            reccomendedItemURL = "0";
         }
         if(prevButtonA == LOW && currButtonA == HIGH){
             questionCountDrink = -1;
