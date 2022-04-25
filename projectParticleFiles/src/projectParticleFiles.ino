@@ -210,7 +210,7 @@ String reccomendedItemURL = "noURLEstablished";
 String reccomendedItemName = "noNameEstablished";
 
 //1 or 0 to represent the button states
-int buttonYes, buttonNo, buttonA, buttonB, buttonC, buttonTest;
+int buttonA, buttonB, buttonTest;
 
 //booleans and ints to represent what the user wants after the questions
 bool foodOrDrink = false; //false for food, true for dink
@@ -223,16 +223,26 @@ int currTime; //current hour in UTC-6 (centeral standard time)
 int mealTime; //0=breakfast, 1=lunch, 2=dinner, 4=snack
 
 //particle pin numbers
-int buttonYesPIN = D3;
-int buttonNoPIN = D4;
-int buttonAPIN = D7;
-int buttonBPIN = D6;
-int buttonCPIN = D5;
+int buttonAPIN = D5;
+int buttonBPIN = D4;
+int buttonCPIN = D3;
 int buttonTestPIN = D2;
-int LCDPIN1 = D0;
-int LCDPIN2 = D1;
+
 
 LiquidCrystal_I2C lcd(0x27,20,4);
+
+
+int questionCountFood = -1;
+int questionCountDrink = -1;
+
+int currButtonA = LOW;
+int currButtonB = LOW;
+int currButtonTest = LOW;
+int prevButtonA = LOW;
+int prevButtonB = LOW;
+int prevButtonTest = LOW;
+
+bool hasBeenDisplayed = false;
 
 void setup(){
     //food array setting
@@ -311,14 +321,9 @@ void setup(){
     drinkArr[6] = &Juice;
 
     //initialize particle pins
-    pinMode(buttonYesPIN, INPUT);
-    pinMode(buttonNoPIN, INPUT);
-    pinMode(buttonAPIN, INPUT);
-    pinMode(buttonBPIN, INPUT);
-    pinMode(buttonCPIN, INPUT);
-    pinMode(buttonTestPIN, INPUT);
-    pinMode(LCDPIN1, OUTPUT);
-    pinMode(LCDPIN2, OUTPUT);
+    pinMode(buttonAPIN, INPUT_PULLDOWN);
+    pinMode(buttonBPIN, INPUT_PULLDOWN);
+    pinMode(buttonTestPIN, INPUT_PULLDOWN);
 
     //set time zone
     Time.zone(-6);
@@ -326,9 +331,11 @@ void setup(){
     lcd.init();
     lcd.init();
     lcd.backlight();
+    lcd.clear();
 
     //create cloud variable to store the url of the reccomended item so IFTTT can access it
     Particle.variable("reccURL", reccomendedItemURL);
+    Particle.variable("reccName", reccomendedItemName);
 }
 
 
@@ -414,31 +421,12 @@ a URL to that item's recipe.  This update triggers an If This Then That Applet t
 predefined email address with this URL.
 
 */
-int questionCountFood = -1;
-int questionCountDrink = -1;
 
-int currButtonA = LOW;
-int currButtonB = LOW;
-int currButtonC = LOW;
-int currButtonYes = LOW;
-int currButtonNo = LOW;
-int currButtonTest = LOW;
-int prevButtonA = LOW;
-int prevButtonB = LOW;
-int prevButtonC = LOW;
-int prevButtonYes = LOW;
-int prevButtonNo = LOW;
-int prevButtonTest = LOW;
-
-bool hasBeenDisplayed = false;
 
 
 void loop(){
     currButtonA = digitalRead(buttonAPIN);
     currButtonB = digitalRead(buttonBPIN);
-    currButtonC = digitalRead(buttonCPIN);
-    currButtonYes = digitalRead(buttonYesPIN);
-    currButtonNo = digitalRead(buttonNoPIN);
     currButtonTest = digitalRead(buttonTestPIN);
 
     currTime = Time.hour();
@@ -455,7 +443,7 @@ void loop(){
         mealTime = 4;//snack
     }
 
-    if(questionCountDrink == -1){//hold test button from particle boot to initialize the hardcoded script
+    if(questionCountDrink == -1){//initial case when thingy boots up
         if(hasBeenDisplayed == false){
             //ASK FOR A to continue
             lcd.clear();
@@ -474,12 +462,14 @@ void loop(){
             questionCountDrink++;
             questionCountFood++;
             hasBeenDisplayed = false;
+            prevButtonA = currButtonA;
         }
-        else if(prevButtonB == LOW && currButtonB == HIGH){
+        if(prevButtonB == LOW && currButtonB == HIGH){
             //TODO: INSERT HARD CODE HERE
             // questionCountDrink++;
             // questionCountFood++;
             hasBeenDisplayed = false;
+            prevButtonB = currButtonB;
         }
         
     }
@@ -503,12 +493,14 @@ void loop(){
             questionCountDrink++;
             questionCountFood++;
             hasBeenDisplayed = false;
+            prevButtonA = currButtonA;
         }
-        else if(prevButtonB == LOW && currButtonB == HIGH){
+        if(prevButtonB == LOW && currButtonB == HIGH){
             foodOrDrink = true;
             questionCountDrink++;
             questionCountFood++;
             hasBeenDisplayed = false;
+            prevButtonB = currButtonB;
         }
     }
     if(questionCountDrink == 1){
@@ -530,12 +522,14 @@ void loop(){
             questionCountDrink++;
             questionCountFood++;
             hasBeenDisplayed = false;
+            prevButtonA = currButtonA;
         }
-        else if(prevButtonB == LOW && currButtonB == HIGH){
+        if(prevButtonB == LOW && currButtonB == HIGH){
             desiredSweet = false;
             questionCountDrink++;
             questionCountFood++;
             hasBeenDisplayed = false;
+            prevButtonB = currButtonB;
         }
     }
     if(questionCountDrink == 2){
@@ -558,12 +552,14 @@ void loop(){
             questionCountDrink++;
             questionCountFood++;
             hasBeenDisplayed = false;
+            prevButtonA = currButtonA;
         }
-        else if(prevButtonB == LOW && currButtonB == HIGH){
+        if(prevButtonB == LOW && currButtonB == HIGH){
             tempDesired = false;
             questionCountDrink++;
             questionCountFood++;
             hasBeenDisplayed = false;
+            prevButtonB = currButtonB;
         }
     }
     if(questionCountFood == 3 && foodOrDrink == false){
@@ -584,11 +580,13 @@ void loop(){
             desiredSpice = true;
             questionCountFood++;
             hasBeenDisplayed = false;
+            prevButtonA = currButtonA;
         }
-        else if(prevButtonB == LOW && currButtonB == HIGH){
+        if(prevButtonB == LOW && currButtonB == HIGH){
             desiredSpice = false;
             questionCountFood++;
             hasBeenDisplayed = false;
+            prevButtonB = currButtonB;
         }
     }
     if(questionCountFood == 4 && foodOrDrink == false){
@@ -609,11 +607,13 @@ void loop(){
             desiredVegetarian = true;
             questionCountFood++;
             hasBeenDisplayed = false;
+            prevButtonA = currButtonA;
         }
-        else if(prevButtonB == LOW && currButtonB == HIGH){
+        if(prevButtonB == LOW && currButtonB == HIGH){
             desiredVegetarian = false;
             questionCountFood++;
             hasBeenDisplayed = false;
+            prevButtonB = currButtonB;
         }
     }
     if(questionCountDrink == 3 && foodOrDrink == true){
@@ -634,17 +634,20 @@ void loop(){
             desiredVegetarian = true;
             questionCountDrink++;
             hasBeenDisplayed = false;
+            prevButtonA = currButtonA;
         }
-        else if(prevButtonB == LOW && currButtonB == HIGH){
+        if(prevButtonB == LOW && currButtonB == HIGH){
             desiredVegetarian = false;
             questionCountDrink++;
             hasBeenDisplayed = false;
+            prevButtonB = currButtonB;
         }
     }
     if(questionCountFood == 5 && foodOrDrink == false){
         reccomendedItem = searchForFood(mealTime, desiredSweet, desiredSpice, tempDesired, desiredVegetarian);
 
         reccomendedItemURL = reccomendedItem.getRecipeURL();
+        reccomendedItemName = reccomendedItem.getItemName();
         questionCountFood++;
     }
     if(questionCountDrink == 4 && foodOrDrink == true){
@@ -653,9 +656,10 @@ void loop(){
         }
         reccomendedItem = searchForDrink(mealTime, desiredSweet, tempDesired, desiredCaffeine);
         reccomendedItemURL = reccomendedItem.getRecipeURL();
+        reccomendedItemName = reccomendedItem.getItemName();
         questionCountDrink++;
     }
-    if(questionCountFood == 5 || questionCountDrink == 4){
+    if(questionCountFood == 6 || questionCountDrink == 5){
         if(hasBeenDisplayed == false){
             //ASK if want to redo catinator a=y, b=n
             lcd.clear();
@@ -673,11 +677,13 @@ void loop(){
             questionCountDrink = -1;
             questionCountFood = -1;
             hasBeenDisplayed = false;
+            prevButtonA = currButtonA;
         }
-        else if(prevButtonB == LOW && currButtonB == HIGH){
+        if(prevButtonB == LOW && currButtonB == HIGH){
             questionCountDrink = 10000;
             questionCountFood = 10000;
             hasBeenDisplayed = false;
+            prevButtonB = currButtonB;
         }
     }
     if(questionCountDrink == 10000 && questionCountFood == 10000){
@@ -698,15 +704,13 @@ void loop(){
             questionCountDrink = -1;
             questionCountFood = -1;
             hasBeenDisplayed = false;
+            prevButtonA = currButtonA;
         }
     }
 
 
     prevButtonA = currButtonA;
     prevButtonB = currButtonB;
-    prevButtonC = currButtonC;
-    prevButtonNo = currButtonNo;
-    prevButtonYes = currButtonYes;
     prevButtonTest = currButtonTest;
     
     //TODO: INSERT CODE HERE FOR SERVO
