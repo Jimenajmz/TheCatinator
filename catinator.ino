@@ -77,9 +77,6 @@ class Food{
         String getRecipeURL(){
             return recipeURL;
         }
-
-
-        ~Food();
 };
 
 Food::Food(){
@@ -106,9 +103,6 @@ Food::Food(String itemName, double timeToMake, bool temperature, int foodTime, b
     Food::recipeURL = recipeURL;
 }
 
-Food::~Food(){
-
-}
 
 //breakfast
     Food Black_Pudding("Black_Pudding", 0.5, false,0,false,false,false,false, "https://www.epicurious.com/recipes/food/views/black-pudding-51145600");
@@ -210,7 +204,7 @@ String reccomendedItemURL = "0";
 String reccomendedItemName = "noNameEstablished";
 
 //1 or 0 to represent the button states
-int buttonA, buttonB, buttonTest;
+int buttonA, buttonB;
 
 //booleans and ints to represent what the user wants after the questions
 bool foodOrDrink = false; //false for food, true for dink
@@ -223,27 +217,27 @@ int currTime; //current hour in UTC-6 (centeral standard time)
 int mealTime; //0=breakfast, 1=lunch, 2=dinner, 4=snack
 
 //particle pin numbers
-int buttonAPIN = D5;
-int buttonBPIN = D4;
-int buttonCPIN = D3;
-int buttonTestPIN = D2;
+int buttonAPIN = D2;
+int buttonBPIN = D3;
 
 //Used for ending servo motion
 Servo myservo;
 int pos = 0;
 
+//Create a LiquidCrystal_I2C object to control our LCD
 LiquidCrystal_I2C lcd(0x27,20,4);
 
+//Create counters to keep track of which questions have been asked in void loop()
 int questionCountFood = -1;
 int questionCountDrink = -1;
 
+//set current and previous button states for our state machine
 int currButtonA = LOW;
 int currButtonB = LOW;
-int currButtonTest = LOW;
 int prevButtonA = LOW;
 int prevButtonB = LOW;
-int prevButtonTest = LOW;
 
+//Determine wheather or not the display has been activated for each specific question
 bool hasBeenDisplayed = false;
 
 void setup(){
@@ -325,17 +319,17 @@ void setup(){
     //initialize particle pins
     pinMode(buttonAPIN, INPUT_PULLDOWN);
     pinMode(buttonBPIN, INPUT_PULLDOWN);
-    pinMode(buttonTestPIN, INPUT_PULLDOWN);
 
     //set time zone
     Time.zone(-6);
     
+    //initialize lcd elements
     lcd.init();
     lcd.init();
     lcd.backlight();
     lcd.clear();
 
-    //create cloud variable to store the url of the reccomended item so IFTTT can access it
+    //create cloud variables for console.particle.io debugging
     Particle.variable("reccURL", reccomendedItemURL);
     Particle.variable("reccName", reccomendedItemName);
 
@@ -397,42 +391,39 @@ Food searchForDrink(int mealTime, bool desiredSweet, bool tempDesired, bool desi
 }
 
 /*
-Loop executes only number of times the user wants
+void loop() contains the code to ask the user questions by utilizing a non-blocking button getter code.
 
-Starts by grabbing the current button states.  If the test button is pressed during boot up or before 
-sequential run throughs, then the Catinator will enter "test mode" which is a demonstration for the 
-IoT project fair.
+We begin by reading in the current button states and time each time the loop executes
 
-After grabbing button states, the current hour is grabbed and assigned to an integer to represent
-which meal the hour falls into (Breakfast, lunch, dinner, or snack)
+Then, each question block gets executed depending on the values of questionCountDrink and questionCountFood
 
-Then, we call the askForFoodOrDrink() function to ask the user if they want something to eat or drink
-if they want food, then we ask them the following:
-    Should the food be sweet
-    Should the food be spicy
-    Should the food be hot or cold
-    Should the food be vegetarian
+We ensure that there is no flickering with the LCD by only updating the screen once per question block
+    psudo code:
+        begin
+            clear lcd
+            while message isn't done
+                set cursor to start of line
+                print line's message
+        done
 
-If they want drink:
-    Should it be Sweet
-    Should it be hot or cold
-    Should it have caffeine
+After displaying the message to the LCD, the code continues to run, entering into each respective if block
+until a button is pressed.  This assigns the user's desired attributes variable to their respective boolean values.
+Then questionCountDrink and/or questionCountFood gets incramented so that the next iteration of void loop() enters
+the succeding question's if block.
 
-Then, we take that information and either call the searchForFood() or searchForDrink functions to parse
-the main pointer arrays to find a food or drink that matches the user's requirements
+After all of the paramaters for food or drink are accounted for, we take the information and either call the searchForFood() or 
+searchForDrink() functions to parse the main pointer arrays to find a food or drink that matches the user's requirements.
 
-Then, after we get an item that they like, we update the reccomendedItemURL string variable with
-a URL to that item's recipe.  This update triggers an If This Then That Applet that sends an email to a 
-predefined email address with this URL.
+Then, when the search algorithm(s) return a reccomended item, we publish an event titled "item_Found" whose data is the recipe URL
+of the reccomended item.
+
+Furthermore, we have an If This Then That applet that is watching for published events that updates a row in a spreadsheet with the 
+item that catinator is reccomending to you.
 
 */
-
-
-
 void loop(){
     currButtonA = digitalRead(buttonAPIN);
     currButtonB = digitalRead(buttonBPIN);
-    currButtonTest = digitalRead(buttonTestPIN);
 
     currTime = Time.hour();
     if(currTime > 5 && currTime < 12){
@@ -469,14 +460,6 @@ void loop(){
             hasBeenDisplayed = false;
             prevButtonA = currButtonA;
         }
-        if(prevButtonB == LOW && currButtonB == HIGH){
-            //TODO: INSERT HARD CODE HERE
-            // questionCountDrink++;
-            // questionCountFood++;
-            hasBeenDisplayed = false;
-            prevButtonB = currButtonB;
-        }
-        
     }
 
     if(questionCountDrink == 0){
@@ -508,6 +491,7 @@ void loop(){
             prevButtonB = currButtonB;
         }
     }
+
     if(questionCountDrink == 1){
         if(hasBeenDisplayed == false){
             //ASK FOR sweet - button A for sweet, B for not sweet
@@ -537,6 +521,7 @@ void loop(){
             prevButtonB = currButtonB;
         }
     }
+
     if(questionCountDrink == 2){
         if(hasBeenDisplayed == false){
             //ASK FOR TEMP - button A for hot, B for cold
@@ -567,6 +552,7 @@ void loop(){
             prevButtonB = currButtonB;
         }
     }
+
     if(questionCountFood == 3 && foodOrDrink == false){
         if(hasBeenDisplayed == false){
             //ASK FOR spicy - button A for spicy, B for not spicy
@@ -594,6 +580,7 @@ void loop(){
             prevButtonB = currButtonB;
         }
     }
+
     if(questionCountFood == 4 && foodOrDrink == false){
         if(hasBeenDisplayed == false){
             //ASK FOR vegetarian - button A for yes, B for no
@@ -621,6 +608,7 @@ void loop(){
             prevButtonB = currButtonB;
         }
     }
+
     if(questionCountDrink == 3 && foodOrDrink == true){
         if(hasBeenDisplayed == false){
             //ASK FOR caffeine - button A for yes, B for no
@@ -648,6 +636,7 @@ void loop(){
             prevButtonB = currButtonB;
         }
     }
+
     if(questionCountFood == 5 && foodOrDrink == false){
         reccomendedItem = searchForFood(mealTime, desiredSweet, desiredSpice, tempDesired, desiredVegetarian);
 
@@ -655,6 +644,7 @@ void loop(){
         reccomendedItemName = reccomendedItem.getItemName();
         questionCountFood++;
     }
+
     if(questionCountDrink == 4 && foodOrDrink == true){
         if(mealTime != 0){
             mealTime = 4;
@@ -664,6 +654,7 @@ void loop(){
         reccomendedItemName = reccomendedItem.getItemName();
         questionCountDrink++;
     }
+
     if(questionCountFood == 6 || questionCountDrink == 5){
         if(hasBeenDisplayed == false){
             //ASK if want to redo catinator a=y, b=n
@@ -671,6 +662,7 @@ void loop(){
             lcd.clear();
             lcd.setCursor(0,0);           
             lcd.print("Your results are in!");
+            Particle.publish("item_Found", reccomendedItemURL);
             delay(500);
 
             for(int i = 0; i < 5; i++) {
@@ -696,21 +688,23 @@ void loop(){
             lcd.setCursor(0,3);             
             lcd.print("B: No");
             hasBeenDisplayed = true;
-            reccomendedItemURL = "0";
         }
         if(prevButtonA == LOW && currButtonA == HIGH){
             questionCountDrink = -1;
             questionCountFood = -1;
             hasBeenDisplayed = false;
             prevButtonA = currButtonA;
+            reccomendedItemURL = "0";
         }
         if(prevButtonB == LOW && currButtonB == HIGH){
             questionCountDrink = 10000;
             questionCountFood = 10000;
             hasBeenDisplayed = false;
             prevButtonB = currButtonB;
+            reccomendedItemURL = "0";
         }
     }
+
     if(questionCountDrink == 10000 && questionCountFood == 10000){
         if(hasBeenDisplayed == false){
             // display fun catinator slogan
@@ -736,10 +730,6 @@ void loop(){
 
     prevButtonA = currButtonA;
     prevButtonB = currButtonB;
-    prevButtonTest = currButtonTest;
-    
-    //TODO: INSERT CODE HERE FOR SERVO
-
 }
 
 /*
