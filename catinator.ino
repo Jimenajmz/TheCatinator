@@ -696,13 +696,13 @@ void loop(){
             lcd.setCursor(0,3);             
             lcd.print("B: No");
             hasBeenDisplayed = true;
+            reccomendedItemURL = "0";
         }
         if(prevButtonA == LOW && currButtonA == HIGH){
             questionCountDrink = -1;
             questionCountFood = -1;
             hasBeenDisplayed = false;
             prevButtonA = currButtonA;
-            reccomendedItemURL = "0";
         }
         if(prevButtonB == LOW && currButtonB == HIGH){
             questionCountDrink = 10000;
@@ -724,7 +724,6 @@ void loop(){
             lcd.setCursor(8,3);             
             lcd.print("meow");
             hasBeenDisplayed = true;
-            reccomendedItemURL = "0";
         }
         if(prevButtonA == LOW && currButtonA == HIGH){
             questionCountDrink = -1;
