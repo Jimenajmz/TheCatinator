@@ -335,6 +335,10 @@ void setup(){
 
     //Intializes the servo code
     myservo.attach(A4);
+
+
+    //FIGURE OUT WHY THIS ISN'T WORKINGGGGGGG 100% of the time
+    Particle.publish("item_Found", reccomendedItemURL);
 }
 
 
