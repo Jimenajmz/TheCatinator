@@ -228,9 +228,11 @@ int buttonBPIN = D4;
 int buttonCPIN = D3;
 int buttonTestPIN = D2;
 
+//Used for ending servo motion
+Servo myservo;
+int pos = 0;
 
 LiquidCrystal_I2C lcd(0x27,20,4);
-
 
 int questionCountFood = -1;
 int questionCountDrink = -1;
@@ -336,6 +338,9 @@ void setup(){
     //create cloud variable to store the url of the reccomended item so IFTTT can access it
     Particle.variable("reccURL", reccomendedItemURL);
     Particle.variable("reccName", reccomendedItemName);
+
+    //Intializes the servo code
+    myservo.attach(A4);
 }
 
 
@@ -662,6 +667,25 @@ void loop(){
     if(questionCountFood == 6 || questionCountDrink == 5){
         if(hasBeenDisplayed == false){
             //ASK if want to redo catinator a=y, b=n
+
+            lcd.clear();
+            lcd.setCursor(0,0);           
+            lcd.print("Your results are in!");
+            delay(500);
+
+            for(int i = 0; i < 3; i++) {
+                for(pos = 0; pos < 180; pos += 1)  // goes from 0 degrees to 180 degrees
+                    {                                  // in steps of 1 degree
+                        myservo.write(pos);              // tell servo to go to position in variable 'pos'
+                        delay(10);                       // waits 15ms for the servo to reach the position
+                    }
+                    for(pos = 180; pos>=1; pos-=1)     // goes from 180 degrees to 0 degrees
+                    {
+                        myservo.write(pos);              // tell servo to go to position in variable 'pos'
+                        delay(10);                       // waits 15ms for the servo to reach the position
+                    }     
+            }      
+
             lcd.clear();
             lcd.setCursor(0,0);           
             lcd.print("Would you like to go");
