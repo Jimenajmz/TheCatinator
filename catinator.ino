@@ -702,6 +702,7 @@ void loop(){
             questionCountFood = -1;
             hasBeenDisplayed = false;
             prevButtonA = currButtonA;
+            reccomendedItemURL = "0";
         }
         if(prevButtonB == LOW && currButtonB == HIGH){
             questionCountDrink = 10000;
