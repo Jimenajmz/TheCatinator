@@ -105,22 +105,22 @@ Food::Food(String itemName, double timeToMake, bool temperature, int foodTime, b
 
 
 //breakfast
-    Food Black_Pudding("Black_Pudding", 0.5, false,0,false,false,false,false, "https://www.epicurious.com/recipes/food/views/black-pudding-51145600");
-    Food Black_Pudding_w_Jam("Black_Pudding_w_Jam", 0.5, false, 0,false,true,false,false, "https://bosskitchen.com/black-pudding-with-blackberry-onion-jam/");
-    Food Frittata_w_Sriracha("Frittata_w_Sriracha", 0.2, false, 0, false, false, true, false, "https://www.loveandlemons.com/frittata-recipe/");
-    Food Bacon("Bacon", 0.2, true,0,false,false,false,false,"https://insanelygoodrecipes.com/bacon-recipes/");
-    Food Cereal("Cereal", 0.0, false,0,false,false,false,true,"https://www.allrecipes.com/recipe/44162/homemade-cereal/");
-    Food Scrambled_Eggs_w_Sriracha("Scrambled_Eggs_w_Sriracha", 0.2, true, 0, false,false,true,false,"https://www.loveandlemons.com/scrambled-eggs-recipe/");
-    Food Donut("Donut", 0.0,false,0,false,true,false,true,"https://sallysbakingaddiction.com/how-to-make-homemade-glazed-doughnuts/");
-    Food Breakfast_Potatoes("Breakfast_Potatoes", 0.5,true,0,false,false,false,true,"https://www.cookingclassy.com/breakfast-potatoes/");
-    Food Applewood_Bacon_Frittata("Applewood_Bacon_Frittata_with_Sriracha", 0.3, false,0,false,true,true,false,"https://www.mealime.com/recipes/apple-bacon-cheddar-frittata/2292");
-    Food Overnight_Masala_Oats("Overnight_Masala_Oats",0.2,false,0,false,false,true,true,"https://www.indianveggiedelight.com/masala-oats/");
-    Food Scrambled_Eggs_w_Jelly("Scrambled_Eggs_w_Jelly", 0.1, true,0,false,true,false,false,"https://www.justapinch.com/recipes/breakfast/egg-breakfast/southwest-scrambled-eggs-with-jalapeno-jelly.html");
-    Food Spicy_maple_breakfast_Sausage("Spicy_maple_breakfast_Sausage", 0.1,true,0,false,true,true,false,"https://www.allrecipes.com/recipe/277678/spicy-maple-breakfast-sausage/");
-    Food cajun_breakfast_potatoes("cajun_breakfast_potatoes", 0.5,true,0,false,false,true,true,"https://sproutingfree.com/easy-vegan-cajun-breakfast-potatoes/");
-    Food Jelly_Toast("Jelly_Toast", 0.1,true,0,false,true,false,true,"https://www.youtube.com/watch?v=42tqwhRlSWg");
-    Food Sweet_and_Spicy_Oatmeal_Bar("Sweet_and_Spicy_Oatmeal_Bar",1,false,0,false,true,true,true,"https://www.providencejournal.com/story/lifestyle/food/recipes/2016/01/06/spicy-oatmeal-bars-are-easy/32790168007/");
-    Food Spicy_Maple_Tofu("Spicy_Maple_Tofu", 0.2, true,0,false,true,true,true,"https://www.macheesmo.com/spicy-maple-tofu/");
+    Food Black_Pudding(                 "Black_Pudding",                          0.5, false, 0, false, false, false, false, "https://www.epicurious.com/recipes/food/views/black-pudding-51145600");
+    Food Black_Pudding_w_Jam(           "Black_Pudding_w_Jam",                    0.5, false, 0, false, true,  false, false, "https://bosskitchen.com/black-pudding-with-blackberry-onion-jam/");
+    Food Frittata_w_Sriracha(           "Frittata_w_Sriracha",                    0.2, false, 0, false, false, true,  false, "https://www.loveandlemons.com/frittata-recipe/");
+    Food Bacon(                         "Bacon",                                  0.2, true,  0, false, false, false, false, "https://insanelygoodrecipes.com/bacon-recipes/");
+    Food Cereal(                        "Cereal",                                 0.0, false, 0, false, false, false, true,  "https://www.allrecipes.com/recipe/44162/homemade-cereal/");
+    Food Scrambled_Eggs_w_Sriracha(     "Scrambled_Eggs_w_Sriracha",              0.2, true,  0, false, false, true,  false, "https://www.loveandlemons.com/scrambled-eggs-recipe/");
+    Food Donut(                         "Donut",                                  0.0, false, 0, false, true,  false, true,  "https://sallysbakingaddiction.com/how-to-make-homemade-glazed-doughnuts/");
+    Food Breakfast_Potatoes(            "Breakfast_Potatoes",                     0.5, true,  0, false, false, false, true,  "https://www.cookingclassy.com/breakfast-potatoes/");
+    Food Applewood_Bacon_Frittata(      "Applewood_Bacon_Frittata_with_Sriracha", 0.3, false, 0, false, true,  true,  false, "https://www.mealime.com/recipes/apple-bacon-cheddar-frittata/2292");
+    Food Overnight_Masala_Oats(         "Overnight_Masala_Oats",                  0.2, false, 0, false, false, true,  true,  "https://www.indianveggiedelight.com/masala-oats/");
+    Food Scrambled_Eggs_w_Jelly(        "Scrambled_Eggs_w_Jelly",                 0.1, true,  0, false, true,  false, false, "https://www.justapinch.com/recipes/breakfast/egg-breakfast/southwest-scrambled-eggs-with-jalapeno-jelly.html");
+    Food Spicy_maple_breakfast_Sausage( "Spicy_maple_breakfast_Sausage",          0.1, true,  0, false, true,  true,  false, "https://www.allrecipes.com/recipe/277678/spicy-maple-breakfast-sausage/");
+    Food cajun_breakfast_potatoes(      "cajun_breakfast_potatoes",               0.5, true,  0, false, false, true,  true,  "https://sproutingfree.com/easy-vegan-cajun-breakfast-potatoes/");
+    Food Jelly_Toast(                   "Jelly_Toast",                            0.1, true,  0, false, true,  false, true,  "https://www.youtube.com/watch?v=42tqwhRlSWg");
+    Food Sweet_and_Spicy_Oatmeal_Bar(   "Sweet_and_Spicy_Oatmeal_Bar",            1.0, false, 0, false, true,  true,  true,  "https://www.providencejournal.com/story/lifestyle/food/recipes/2016/01/06/spicy-oatmeal-bars-are-easy/32790168007/");
+    Food Spicy_Maple_Tofu(              "Spicy_Maple_Tofu",                       0.2, true,  0, false, true,  true,  true,  "https://www.macheesmo.com/spicy-maple-tofu/");
 
 //lunch
     Food Ham_and_Cheese_Sandwhich("Ham_and_Cheese_Sandwhich",0.1,false,1,false,false,false,false,"https://www.delish.com/cooking/recipe-ideas/a26870550/ham-and-cheese-sandwich-recipe/");
@@ -337,8 +337,8 @@ void setup(){
     myservo.attach(A4);
 
 
-    //FIGURE OUT WHY THIS ISN'T WORKINGGGGGGG 100% of the time
-    Particle.publish("item_Found", reccomendedItemURL);
+    // //FIGURE OUT WHY THIS ISN'T WORKINGGGGGGG 100% of the time
+    // Particle.publish("item_Found", reccomendedItemURL);
 }
 
 
@@ -380,7 +380,7 @@ chooses a random element from an array that holds pointers to matching Food obje
 Food searchForDrink(int mealTime, bool desiredSweet, bool tempDesired, bool desiredCaffeine){
     int j = 0;
     for(int i = 0; i < numDrinks; i++){
-        if(drinkArr[i]->getFoodTime() == mealTime && drinkArr[i]->getSweet() == desiredSweet && drinkArr[i]->getTemperature() == tempDesired && drinkArr[i]->getCaffine() == desiredCaffeine){
+        if((drinkArr[i]->getFoodTime() == mealTime) && (drinkArr[i]->getSweet() == desiredSweet) && (drinkArr[i]->getTemperature() == tempDesired) && (drinkArr[i]->getCaffine() == desiredCaffeine)){
             drinkReccomendations[j] = drinkArr[i];
             j++;
             numDrinkRecc++;
@@ -628,13 +628,13 @@ void loop(){
             hasBeenDisplayed = true;
         }
         if(prevButtonA == LOW && currButtonA == HIGH){
-            desiredVegetarian = true;
+            desiredCaffeine = true;
             questionCountDrink++;
             hasBeenDisplayed = false;
             prevButtonA = currButtonA;
         }
         if(prevButtonB == LOW && currButtonB == HIGH){
-            desiredVegetarian = false;
+            desiredCaffeine = false;
             questionCountDrink++;
             hasBeenDisplayed = false;
             prevButtonB = currButtonB;
