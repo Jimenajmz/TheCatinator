@@ -326,7 +326,7 @@ void setup(){
     pinMode(buttonBPIN, INPUT_PULLDOWN);
 
     //set time zone
-    Time.zone(-6);
+    Time.zone(-5);
     
     //initialize lcd elements
     lcd.init();
