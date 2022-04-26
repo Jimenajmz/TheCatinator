@@ -182,14 +182,14 @@ Food::Food(String itemName, double timeToMake, bool temperature, int foodTime, b
 
 //drinks
 //   /**/    varName                          itemName                                ttm  temp   FT  CAFF  SWEET  SPICE  VEGE                URL
-  /**/  Food hotChocolate(                  "Hot Chocolate",                          0.1, true,  4, true,  true,  false, true,  "https://celebratingsweets.com/homemade-hot-chocolate/");  
-  /**/  Food Water(                         "Water",                                  0.0, false, 4, false, false, false, true,  "https://www.youtube.com/watch?v=_9N-Y2CyYhM");
-  /**/  Food Coffee(                        "Coffee",                                 0.1, true,  0, true,  false, false, true,  "https://www.illy.com/en-us/coffee/coffee-preparation/how-to-use-a-french-press#:~:text=Add%20a%20heaping%20tablespoon%20(7,stand%20for%203%2D4%20minutes");
-  /**/  Food Tea(                           "Tea",                                    0.1, true,  4, true,  false, false, true,  "https://shewearsmanyhats.com/how-to-make-tea/");
-  /**/  Food Soda(                          "Soda",                                   0.0, false, 4, true,  true,  false, true,  "https://www.escoffieronline.com/brewing-your-own-soda/");
-  /**/  Food Smoothie(                      "Smoothie",                               0.2, false, 4, false, true,  false, true,  "https://www.acouplecooks.com/healthy-easy-smoothie-recipes/");
-  /**/  Food Juice(                         "Juice",                                  0.0, false, 4, false, true,  false, true,  "https://www.yummymummykitchen.com/2021/02/juicing-recipes.html");
-
+  /**/  Food Water(                         "Water",                                  0.0, false, 4, false, false, false, true,  "https://www.youtube.com/watch?v=_9N-Y2CyYhM");   
+  /**/  Food Juice(                         "Juice",                                  0.0, false, 4, false, true,  false, true,  "https://www.purewow.com/food/healthy-juice-recipes");
+  /**/  Food Cold_Brew(                     "Cold_Brew",                              0.1, true,  4, true,  false, false, false, "https://cooking.nytimes.com/recipes/1017355-cold-brewed-iced-coffee");
+  /**/  Food Tea(                           "Tea",                                    0.1, true,  4, false, false, false, true,  "https://www.bbcgoodfood.com/recipes/collection/tea-recipes");
+  /**/  Food Warm_Cider(                    "Warm_Cider",                             0.1, true,  4, false, true,  false, true,  "https://www.bettycrocker.com/recipes/hot-spiced-cider/d3493337-14c1-4afb-bf8e-f1793d615405_");
+  /**/  Food Iced_Macchiato(                "Iced_Macchiato",                         0.2, false, 4, true,  true,  false, true,  "https://www.allrecipes.com/recipe/258686/iced-caramel-macchiato/");
+  /**/  Food Black_Coffee(                  "Black_Coffee",                           0.1, true,  4, true,  false, false, true,  "https://somedayilllearn.com/how-to-make-black-coffee/");
+  /**/  Food Latte(                         "Latte",                                  0.1, true,  4, true,  true,  false, true,  "https://www.allrecipes.com/recipe/96629/cafe-latte/");
 //Create global arrays to point to food objects
 Food *drinkArr[200];
 Food *foodArr[200];
@@ -313,13 +313,14 @@ void setup(){
     foodArr[63]= &Tteokbokki;
 
     //drinks array setting
-    drinkArr[0] = &hotChocolate;
-    drinkArr[1] = &Water;
-    drinkArr[2] = &Coffee;
+    drinkArr[0] = &Water;
+    drinkArr[1] = &Juice;
+    drinkArr[2] = &Cold_Brew;
     drinkArr[3] = &Tea;
-    drinkArr[4] = &Soda;
-    drinkArr[5] = &Smoothie;
-    drinkArr[6] = &Juice;
+    drinkArr[4] = &Warm_Cider;
+    drinkArr[5] = &Iced_Macchiato;
+    drinkArr[6] = &Black_Coffee;
+    drinkArr[7] = &Latte;
 
     //initialize particle pins
     pinMode(buttonAPIN, INPUT_PULLDOWN);
@@ -358,6 +359,7 @@ chooses a random element from an array that holds pointers to matching Food obje
 */
 Food searchForFood(int mealTime, bool desiredSweet, bool desiredSpice, bool tempDesired, bool desiredVegetarian){
     int j = 0;
+    numFoodRecc = 0;
     for(int i = 0; i < numFoods; i++){
         if(foodArr[i]->getFoodTime() == mealTime && foodArr[i]->getSweet() == desiredSweet && foodArr[i]->getSpicy() == desiredSpice && foodArr[i]->getTemperature() == tempDesired && foodArr[i]->getVegetarian() == desiredVegetarian){
             foodReccomendations[j] = foodArr[i];
@@ -384,6 +386,7 @@ chooses a random element from an array that holds pointers to matching Food obje
 */
 Food searchForDrink(int mealTime, bool desiredSweet, bool tempDesired, bool desiredCaffeine){
     int j = 0;
+    numDrinkRecc = 0;
     for(int i = 0; i < numDrinks; i++){
         if((drinkArr[i]->getFoodTime() == mealTime) && (drinkArr[i]->getSweet() == desiredSweet) && (drinkArr[i]->getTemperature() == tempDesired) && (drinkArr[i]->getCaffine() == desiredCaffeine)){
             drinkReccomendations[j] = drinkArr[i];
@@ -656,9 +659,7 @@ void loop(){
     }
 
     if(questionCountDrink == 4 && foodOrDrink == true){
-        if(mealTime != 0){
-            mealTime = 4;
-        }
+        mealTime = 4;
         reccomendedItem = searchForDrink(mealTime, desiredSweet, tempDesired, desiredCaffeine);
         reccomendedItemURL = reccomendedItem.getRecipeURL();
 
