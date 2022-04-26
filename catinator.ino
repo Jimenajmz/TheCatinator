@@ -105,6 +105,7 @@ Food::Food(String itemName, double timeToMake, bool temperature, int foodTime, b
 
 
 //breakfast
+//       varName                          itemName                                ttm  temp   FT  CAFF  SWEET  SPICE  VEGE                URL
     Food Black_Pudding(                 "Black_Pudding",                          0.5, false, 0, false, false, false, false, "https://www.epicurious.com/recipes/food/views/black-pudding-51145600");
     Food Black_Pudding_w_Jam(           "Black_Pudding_w_Jam",                    0.5, false, 0, false, true,  false, false, "https://bosskitchen.com/black-pudding-with-blackberry-onion-jam/");
     Food Frittata_w_Sriracha(           "Frittata_w_Sriracha",                    0.2, false, 0, false, false, true,  false, "https://www.loveandlemons.com/frittata-recipe/");
@@ -123,6 +124,7 @@ Food::Food(String itemName, double timeToMake, bool temperature, int foodTime, b
     Food Spicy_Maple_Tofu(              "Spicy_Maple_Tofu",                       0.2, true,  0, false, true,  true,  true,  "https://www.macheesmo.com/spicy-maple-tofu/");
 
 //lunch
+//       varName                          itemName                                ttm  temp   FT  CAFF  SWEET  SPICE  VEGE                URL
     Food Ham_and_Cheese_Sandwhich(      "Ham_and_Cheese_Sandwhich",               0.1, false, 1, false, false, false, false, "https://www.delish.com/cooking/recipe-ideas/a26870550/ham-and-cheese-sandwich-recipe/");
     Food BLT_w_Honey_Sriracha_Mayo(     "BLT_w_Honey_Sriracha_Mayo",              0.1, false, 1, false, true,  false, false, "https://www.soulfullymade.com/blt-with-honey-sriracha-mayo/");
     Food Spicy_Italian_Sub(             "Spicy_Italian_Sub",                      0.1, false, 1, false, false, true,  false, "https://www.lemonsforlulu.com/spicy-italian-subs/#mv-creation-2168-jtr");
@@ -141,6 +143,7 @@ Food::Food(String itemName, double timeToMake, bool temperature, int foodTime, b
     Food Sweet_and_Spicy_tofu(          "Sweet_and_Spicy_tofu",                   0.5, true,  1, false, true,  true,  true,  "https://peasandcrayons.com/2018/10/spicy-sriracha-tofu.html");
 
 //dinner
+//       varName                          itemName                                ttm  temp   FT  CAFF  SWEET  SPICE  VEGE                URL
     Food Ham_Sandwhich(                 "Ham_Sandwhich",                          0.1, false, 2, false, false, false, false, "https://www.delish.com/cooking/recipe-ideas/a26870550/ham-and-cheese-sandwich-recipe/");
     Food BLT_with_Honey_Sriracha_Mayo(  "BLT_with_Honey_Sriracha_Mayo",           0.2, false, 2, false, true,  false, false, "https://www.soulfullymade.com/blt-with-honey-sriracha-mayo/");
     Food Italian_Spicy_Sub(             "Italian_Spicy_Sub",                      0.2, false, 2, false, false, true,  false, "https://www.lemonsforlulu.com/spicy-italian-subs/#mv-creation-2168-jtr");
@@ -159,6 +162,7 @@ Food::Food(String itemName, double timeToMake, bool temperature, int foodTime, b
     Food Sweet_and_Spicy_Tofu(          "Sweet_and_Spicy_Tofu",                   0.4, true,  2, false, true,  true,  true,  "https://peasandcrayons.com/2018/10/spicy-sriracha-tofu.html");
 
 //snacks
+//       varName                          itemName                                ttm  temp   FT  CAFF  SWEET  SPICE  VEGE                 URL
     Food Beef_Jerky(                    "Beef_Jerky",                             0.0, false, 4, false, false, false, false, "https://www.onceuponachef.com/recipes/the-best-homemade-beef-jerky-recipe.html");
     Food Candy_Bacon(                   "Candy_Bacon",                            0.2, false, 4, false, true,  false, false, "https://www.simplyrecipes.com/recipes/how_to_make_candied_bacon/");
     Food Beef_Stick(                    "Beef_Stick",                             0.0, false, 4, false, false, true,  false, "https://betterbegrilled.com/recipes/smoked-beef-sticks");
@@ -177,6 +181,7 @@ Food::Food(String itemName, double timeToMake, bool temperature, int foodTime, b
     Food Tteokbokki(                    "Tteokbokki",                             0.3, true,  4, false, true,  true,  true,  "https://mykoreankitchen.com/tteokbokki-spicy-rice-cakes/");
 
 //drinks
+//       varName                          itemName                                ttm  temp   FT  CAFF  SWEET  SPICE  VEGE                URL
     Food hotChocolate(                  "Hot Chocolate",                          0.1, true,  4, true,  true,  false, true,  "https://celebratingsweets.com/homemade-hot-chocolate/");  
     Food Water(                         "Water",                                  0.0, false, 4, false, false, false, true,  "https://www.youtube.com/watch?v=_9N-Y2CyYhM");
     Food Coffee(                        "Coffee",                                 0.1, true,  0, true,  false, false, true,  "https://www.illy.com/en-us/coffee/coffee-preparation/how-to-use-a-french-press#:~:text=Add%20a%20heaping%20tablespoon%20(7,stand%20for%203%2D4%20minutes");
