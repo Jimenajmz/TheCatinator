@@ -185,7 +185,7 @@ Food Latte("Latte", 0.1, true, 4, true, true, false, true, "https://www.allrecip
 //Create global arrays to point to food objects
 Food *drinkArr[200];
 Food *foodArr[200];
-int numDrinks = 7;
+int numDrinks = 8;
 int numFoods = 64;
 
 //Create arrays to hold food reccomendations
