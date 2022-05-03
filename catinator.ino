@@ -1,3 +1,9 @@
+//breac001, 
+//Matthew Breach, Jimena Jimenez, Jacob Kingsbury
+//EE 1301 Final Project
+//”The Catinator”
+//catinator.ino
+//https://github.com/Jimenajmz/TheCatinator
 #include <string>
 #include "LiquidCrystal_I2C_Spark.h"
 
