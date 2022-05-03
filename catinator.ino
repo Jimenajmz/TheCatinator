@@ -1,4 +1,4 @@
-//breac001, 
+//breac001, jimen238, kings319
 //Matthew Breach, Jimena Jimenez, Jacob Kingsbury
 //EE 1301 Final Project
 //”The Catinator”
